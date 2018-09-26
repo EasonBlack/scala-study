@@ -13,6 +13,8 @@ GET     /fetchSth                   controllers.HomeController.fetchSth
 GET     /demo/main                   controllers.StudentController.index
 GET     /api/student                 controllers.StudentController.fetch
 
+GET     /slick/main                  controllers.StudentSlickController.index
+
 POST    /saveSth                      controllers.HomeController.saveSth
 
 # Map static resources from the /public folder to the /assets URL path

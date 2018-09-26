@@ -11,6 +11,12 @@ libraryDependencies += guice
 libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % Test
 libraryDependencies += jdbc
 libraryDependencies += "mysql" % "mysql-connector-java" % "5.1.40"
+
+
+//libraryDependencies += "com.typesafe.slick" %% "slick" % "3.2.3"
+libraryDependencies += "com.typesafe.play" %% "play-slick" % "3.0.1"
+
+
 // Adds additional packages into Twirl
 //TwirlKeys.templateImports += "xxx.controllers._"
 
