@@ -13,11 +13,13 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import slick.backend.DatabaseConfig
 import slick.driver.MySQLDriver
 
-case class Student(id: String, name: String, age: String)
+import models.{Course, CourseTable}
+
+case class Student(id: Int, name: String, age: String)
 
 
 class StudentsTable(tag: Tag) extends Table[Student](tag, "student") {
-    def id = column[String]("id", O.PrimaryKey,O.AutoInc)
+    def id = column[Int]("id", O.PrimaryKey,O.AutoInc)
     def name = column[String]("name")
     def age = column[String]("age")
 
@@ -26,13 +28,14 @@ class StudentsTable(tag: Tag) extends Table[Student](tag, "student") {
 
 object Students {
 
-  val dbConfig: DatabaseConfig[MySQLDriver] = DatabaseConfig.forConfig("play.dbs.default")
+  val dbConfig: DatabaseConfig[MySQLDriver] = DatabaseConfig.forConfig("slick.dbs.default")
 
   //val dbConfig = DatabaseConfigProvider.get[JdbcProfile](Play.current)
   val students = TableQuery[StudentsTable]
 
   def listAll: Future[Seq[Student]] = {
     dbConfig.db.run(students.result)
+    //dbConfig.db.run(students.result)
   }
 
 }

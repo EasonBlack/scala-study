@@ -1,0 +1,12 @@
+@(list:Seq[StudentJoin])
+ 
+@main("Welcome to Play") {
+    <h1>Table of Student</h1>
+    <table>
+    @for(t <- list) {
+        <tr>
+           <td>@t.name</td>
+        </tr> 
+    }
+    </table>
+}

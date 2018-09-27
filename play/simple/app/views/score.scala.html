@@ -1,0 +1,15 @@
+@(list:Seq[Score])
+ 
+@main("Welcome to Play") {
+    <h1>Table of Score</h1>
+    <table>
+    @for(t <- list) {
+        <tr>
+           <td>@t.id</td>
+           <td>@t.studentid</td>
+           <td>@t.courseid</td>
+           <td>@t.num</td>
+        </tr> 
+    }
+    </table>
+}

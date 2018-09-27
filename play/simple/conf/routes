@@ -14,6 +14,12 @@ GET     /demo/main                   controllers.StudentController.index
 GET     /api/student                 controllers.StudentController.fetch
 
 GET     /slick/main                  controllers.StudentSlickController.index
+GET     /slick/course                controllers.StudentSlickController.courseList
+GET     /slick/score                 controllers.StudentSlickController.scoreList
+GET     /slick/studentjoin           controllers.StudentSlickController.studentJoinList
+GET     /slick/studentjoin2          controllers.StudentSlickController.studentJoinList2
+
+GET     /demo/index                  controllers.DemoController.index
 
 POST    /saveSth                      controllers.HomeController.saveSth
 
