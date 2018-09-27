@@ -14,6 +14,16 @@ import play.api.mvc.AnyContent
 case class UserA(id: Int, name: String, age: Int)
 case class UserB(id: Int, name: String)
 
+trait Foo {
+   type T;
+   val x:T;
+   def getX:T = x
+}
+
+class Bar {
+  def apply() = println("this is bar")
+}
+
 @Singleton
 class DemoController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
 
@@ -46,7 +56,13 @@ class DemoController @Inject()(cc: ControllerComponents) extends AbstractControl
     println(users);
     println(users.headOption)
     println("====================")
-
+    var __x = (new Foo{type T = Int; val x = 123}).getX
+    var __y = (new Foo{type T = String;val x = "hello tony"}).getX
+    println(__x + __y);
+    println("====================")
+    val bar = new Bar
+    bar()
+    println("====================")
     Ok("test")
   }
 
