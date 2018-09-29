@@ -20,8 +20,9 @@ GET     /slick/studentjoin           controllers.StudentSlickController.studentJ
 GET     /slick/studentjoin2          controllers.StudentSlickController.studentJoinList2
 
 GET     /demo/index                  controllers.DemoController.index
+GET     /demo/testRequest/:name      controllers.DemoController.testRequest(name: String)
 
-POST    /saveSth                      controllers.HomeController.saveSth
+POST    /saveSth                     controllers.HomeController.saveSth
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

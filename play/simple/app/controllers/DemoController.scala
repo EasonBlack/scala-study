@@ -66,7 +66,10 @@ class DemoController @Inject()(cc: ControllerComponents) extends AbstractControl
     Ok("test")
   }
 
-  
+  def testRequest(name: String) = Action { implicit request: Request[AnyContent] =>
+    println(request.queryString)
+    Ok(Json.toJson(request.queryString))
+  }
 
 
 }
