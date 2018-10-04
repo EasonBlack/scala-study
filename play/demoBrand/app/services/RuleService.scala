@@ -13,16 +13,17 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 
 @Singleton
-class BrandService  @Inject()(protected val dbConfigProvider: DatabaseConfigProvider) extends HasDatabaseConfigProvider[JdbcProfile]  {
-  val _brandTables = Tables.brandTables
+class RuleService  @Inject()(protected val dbConfigProvider: DatabaseConfigProvider) extends HasDatabaseConfigProvider[JdbcProfile]  {
+ 
   val _ruleTables = Tables.ruleTables
       
-  def fetchAll(): Future[Seq[Brand]] = {
-    db.run(_brandTables.result)
+  def createRule(rule: Rule): Future[Int]  = {
+    db.run(_ruleTables += rule)
   }
 
-  def fetchRuleById: Unit = {
-    
+  def fetchRulesByBrand(id: Int) : Future[Seq[Rule]] = {
+    //db.run(_ruleTables.result)
+    db.run(_ruleTables.filter(_.brandid===id).result)
   }
    
 }

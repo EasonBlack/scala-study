@@ -20,8 +20,6 @@ import scala.concurrent.ExecutionContext
 //   implicit val brandFormat = Json.writes[Brand]
 // }
  
-
- 
 @Singleton
 class BrandController @Inject()(brandService: BrandService, cc: ControllerComponents)
  (implicit exec: ExecutionContext) extends AbstractController(cc) {
