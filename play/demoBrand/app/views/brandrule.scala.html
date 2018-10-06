@@ -17,7 +17,8 @@
       <input class='form-control' ng-model='rule.name' />
       <input class='form-control' ng-model='rule.operator' />
       <input class='form-control' ng-model='rule.num' />
-      <button class='btn btn-primary' ng-click='addRule()'>Add</button>
+      <button class='btn btn-primary' ng-click='addRule()' ng-if='!rule.id'>Add</button>
+      <button class='btn btn-primary' ng-click='updateRule()' ng-if='rule.id'>Edit</button>
     </div>
   </div>
   <div class='row'>
@@ -27,13 +28,19 @@
         <th>Name</th>
         <th>Operator</th>
         <th>Num</th>
+        <th>Brand</th>
+        <th></th>
       </thead>
       <tbody>
-        <tr ng-repeat='item in rules'>
+        <tr ng-repeat='item in rules' ng-click='setUpdate(item)'>
           <td>{{item.id}}</td>
           <td>{{item.name}}</td>
           <td>{{item.operator}}</td>
           <td>{{item.num}}</td>
+          <td>{{item.brandInfo.name}}</td>
+          <td>
+            <button class='btn btn-primary' ng-click='delete(item)'>Delete</button>
+          </td>
         </tr>
       </tbody>
     </table>

@@ -4,22 +4,17 @@ app.controller('Controller', ['$scope', '$http',
     $scope.brands = []
     $scope.rules = []
     $scope.rule = {}
-
-
     
     $scope.search = () => {
-      axios.get(`/api/rule?brandid=${$scope.rule.brandid}`)
+      axios.get(`/api/ruleinfo?brandid=${$scope.rule.brandid}`)
       .then(resRules => {
         $scope.rules = resRules.data;
         $scope.$apply();
       })
     }
 
-
-
     $scope.addRule = () => {
-
-      axios.post('/api/rule' , {
+      axios.post('/api/rule2' , {
         brandid: $scope.rule.brandid,
         name: $scope.rule.name,
         operator: $scope.rule.operator,
@@ -27,19 +22,33 @@ app.controller('Controller', ['$scope', '$http',
       }).then(res=>{
         $scope.search();
       });
-      // $http({
-      //   method: 'POST',
-      //   url: '/api/rule',
-      //   data: {
-      //     brandid: $scope.rule.brandid,
-      //     name: $scope.rule.name,
-      //     operator: $scope.rule.operator,
-      //     num: $scope.rule.num
-      //   }
-      // }).success(result => {
-      //   console.log(result)
-      // }) 
     }
+
+    $scope.delete = (item) => {
+      axios.delete(`api/rule/${item.id}`)
+      .then(res=>{
+        $scope.search();
+      })
+    }
+
+    $scope.setUpdate = (item) => {
+      $scope.rule = {
+        id: item.id,
+        name: item.name,
+        operator: item.operator,
+        num: item.num,
+        brandid: item.brandid
+      }
+    }
+
+    $scope.updateRule = () => {
+      axios.patch(`/api/rule/${$scope.rule.id}`, $scope.rule)
+      .then(res=>{
+        console.log(res);
+        $scope.search();
+      })
+    }
+
 
     let init = ()=>{
       axios.get('/api/brand')
@@ -47,11 +56,6 @@ app.controller('Controller', ['$scope', '$http',
         $scope.brands = resultBrands.data;
         $scope.rule.brandid = $scope.brands[0].id;
         $scope.search();
-        // axios.get(`/api/rule?brandid=${$scope.rule.brandid}`)
-        // .then(resultRules => {
-        //   $scope.rules = resultRules.data;
-        //   $scope.$apply();
-        // })
       })
     }
 

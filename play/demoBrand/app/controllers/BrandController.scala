@@ -13,12 +13,11 @@ import play.api.mvc.AnyContent
 import services.BrandService
 import models._
 
+import utils.JsonUtils.{brandWrites }
+
 
 import scala.concurrent.ExecutionContext
 
-// object BrandFormat {
-//   implicit val brandFormat = Json.writes[Brand]
-// }
  
 @Singleton
 class BrandController @Inject()(brandService: BrandService, cc: ControllerComponents)
@@ -29,7 +28,6 @@ class BrandController @Inject()(brandService: BrandService, cc: ControllerCompon
   }
 
   def fetchAll() = Action.async { implicit request: Request[AnyContent] => 
-    implicit val brandWrites = Json.writes[Brand]
     brandService.fetchAll map { 
       brands => Ok(Json.toJson(brands))
     } 
