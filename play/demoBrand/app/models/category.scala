@@ -1,3 +1,3 @@
 package models
 
-case class Category(id: Int, name: String, brandid: Int)
+case class Category(id: Option[Int], name: String, brandid: Int)
