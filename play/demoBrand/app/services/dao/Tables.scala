@@ -28,7 +28,7 @@ object Tables  {
     def id = column[Int]("id", O.PrimaryKey,O.AutoInc)
     def name = column[String]("name")
     def categoryid = column[Int]("categoryid")
-    override  def * = (id, name, categoryid) <> (Product.tupled, Product.unapply)
+    override  def * = (id.?, name, categoryid) <> (Product.tupled, Product.unapply)
   }
 
   val productTables = TableQuery[ProductTable]

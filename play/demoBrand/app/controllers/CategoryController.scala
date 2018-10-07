@@ -33,7 +33,7 @@ class CategoryController @Inject()(categoryService: CategoryService, cc: Control
     }
   }
 
-  def addCategory() = Action.async { implicit request: Request[AnyContent] =>
+  def addCategorys() = Action.async { implicit request: Request[AnyContent] =>
 
     val jsonBody  =  request.body.asJson.get
     val items  = jsonBody.as[JsArray]

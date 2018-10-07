@@ -21,7 +21,6 @@ class CategoryService  @Inject()(protected val dbConfigProvider: DatabaseConfigP
   }
 
   def createCategorys(cats: Seq[Category]): Future[Option[Int]]= {
-  
     db.run(_categoryTables ++= cats)
   }
 

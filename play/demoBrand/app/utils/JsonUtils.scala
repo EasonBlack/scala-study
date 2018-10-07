@@ -13,4 +13,6 @@ object JsonUtils {
 
   //implicit val categoryWrites = Json.writes[Category]
   implicit val categoryFormat = Json.format[Category]
+  implicit val productFormat = Json.format[Product]
+  implicit val productInfoWrites = Json.writes[ProductInfo]
 }

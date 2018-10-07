@@ -2,14 +2,24 @@ app.controller('Controller', ['$scope', '$http',
   function ($scope, $http) {
 
     $scope.brands = [];
-    $scope.category = {
-    }
+    $scope.selectBrand = null;
+    $scope.categorys = [];
+    $scope.selectCategory = null;
     $scope.items= []
     $scope.isEditDisplay = false;
-    $scope.newCategorys = []
+    $scope.newProducts = []
+
+    $scope.brandChange = () => {
+      axios.get(`/api/category/${$scope.selectBrand}`)
+      .then(res=>{
+        console.log(res);
+        $scope.categorys = res.data;
+        $scope.$apply();
+      })
+    }
 
     $scope.search = ()=>{
-      axios.get(`/api/category/${$scope.category.brandid}`)
+      axios.get(`/api/productInfo/${$scope.selectCategory}`)
       .then(res=>{
         $scope.items = res.data;
         $scope.$apply();
@@ -17,15 +27,15 @@ app.controller('Controller', ['$scope', '$http',
     }
     $scope.cancel = ()=> {
       $scope.isEditDisplay = false;
-      $scope.newCategorys = [];
+      $scope.newProducts = [];
     }
 
-    $scope.addCategory = () => {
-      $scope.newCategorys.push({name: '', brandid: $scope.category.brandid})
+    $scope.addProduct = () => {
+      $scope.newProducts.push({name: '', categoryid: $scope.selectCategory})
     }
 
     $scope.save = ()=>{
-      axios.post('/api/category', $scope.newCategorys).then( (result) => {
+      axios.post('/api/product', $scope.newProducts).then( (result) => {
         console.log(result);
         $scope.search();
       })
@@ -33,7 +43,6 @@ app.controller('Controller', ['$scope', '$http',
 
     let init = ()=>{
       axios.get('/api/brand').then( (result) => {
-        console.log(result);
         $scope.brands = result.data;
         $scope.$apply();
       })

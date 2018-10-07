@@ -1,0 +1,68 @@
+@()
+
+@main("Category") {
+  <h1>Category</h1>
+  <div class='container-fluid' >
+    <div class='row'>
+      <div class='col-md-2'>
+          <select class='form-control' ng-model="selectBrand" 
+          ng-options="item.id as item.name for item in brands" ng-change='brandChange()'></select>
+      </div>
+      <div class='col-md-2'>
+          <select class='form-control' ng-model="selectCategory" 
+          ng-options="item.id as item.name for item in categorys">
+          <option value=''>Please Select</option>
+        </select>
+      </div>
+      <div class='col-md-8'>
+          <button class='btn btn-primary' ng-click='search()'>Search</button>
+          <button class='btn btn-primary' ng-click='isEditDisplay=true'>Add</button>
+      </div>
+    
+    </div>
+   
+    
+  </div>
+  
+  <table class='table'>
+    <thead>
+      <th>ID</th>
+      <th>NAME</th>
+      <th>Brand</th>
+      <th>Category</th>
+    </thead>
+    <tbody>
+      <tr ng-repeat='item in items'>
+        <td>{{item.id}}</td>
+        <td>{{item.name}}</td>
+        <td>{{item.brandInfo.name}}</td>
+        <td>{{item.categoryInfo.name}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class='modal-wrapper' ng-if='isEditDisplay'>
+    <div class='modal-panel'>
+      <div class='modal-header'>
+        Edit
+      </div>
+      <div class='modal-body'>
+        <div>
+          <div>
+            <button class='btn btn-primary' ng-click='addProduct()'>Add</button>
+          </div>
+         
+          <div ng-repeat='nc in newProducts'>
+            <label>name:</label> <input ng-model='nc.name' /> 
+          </div>
+        </div>
+        <div>
+          <button ng-click='save()'>Save</button>
+          <button ng-click='cancel()'>Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+}{
+  <script src="/assets/javascripts/product.js"></script>
+}
