@@ -15,6 +15,11 @@ case class User(id: Int, name: String)
 @Singleton
 class HomeController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
   implicit val userWrites = Json.writes[User];
+
+  def index() = Action {
+    Ok(views.html.home())
+  }
+
   def fetch1() = Action { implicit request: Request[AnyContent] =>
     Ok(Json.toJson(Json.obj("a"-> 1, "b"->2)))
   }
@@ -54,5 +59,9 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
     f map {
       data => Ok(data)
     }
+  }
+
+   def fetch7() = Action.async { implicit request: Request[AnyContent] =>   
+    Future(Ok("Success"))
   }
 }

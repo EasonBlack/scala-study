@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en"  ng-app="app">
+    <head>
+        <title>Demo</title>
+        <link rel="stylesheet" media="screen" href="/assets/style/bootstrap.min.css">
+    </head>
+
+    <body ng-controller="Controller">
+
+      <div class='container-fluid'>
+     
+        <div class='row'>
+          <input class='form-control col-md-2 ' ng-model='model.send1.input1' /> 
+          <div class='col-md-10'>
+              <button class='btn btn-primary' ng-click='send1()'>Send1</button> 
+              <button class='btn btn-primary' ng-click='send2()'>Send2</button> 
+          </div>  
+        </div>
+        <div class='row'>
+            <input class='form-control col-md-1 ' ng-model='model.send11.input1' /> 
+            <input class='form-control col-md-1 ' ng-model='model.send11.input2' /> 
+            <div class='col-md-10'>
+                <button class='btn btn-primary' ng-click='send11()'>Send11</button> 
+            </div>  
+          </div>
+        <div class='row'>
+            <input class='form-control col-md-1 ' ng-model='model.send3.id' /> 
+            <input class='form-control col-md-1 ' ng-model='model.send3.name' /> 
+            <div class='col-md-10'>
+                <button class='btn btn-primary' ng-click='send3()'>Send3</button> 
+            </div>  
+        </div>
+        <div class='row'>
+            <input class='form-control col-md-1 ' type='number' ng-model='model.send4[0].id' /> 
+            <input class='form-control col-md-1 ' ng-model='model.send4[0].name' /> 
+        </div>
+        <div class='row'>
+            <input class='form-control col-md-1 ' type='number' ng-model='model.send4[1].id' /> 
+            <input class='form-control col-md-1 ' ng-model='model.send4[1].name' /> 
+            <div class='col-md-10'>
+                <button class='btn btn-primary' ng-click='send4()'>Send4</button> 
+            </div>  
+        </div>
+
+        <div class='row'>
+            <div class='col-md-10'>
+                <button class='btn btn-primary' ng-click='post1()'>Post1</button> 
+            </div>  
+        </div>
+        <div class='row'>
+            <input class='form-control col-md-1 ' ng-model='model.post2[0].name' /> 
+        </div>
+        <div class='row'>
+            <input class='form-control col-md-1 ' ng-model='model.post2[1].name' /> 
+            <div class='col-md-10'>
+                <button class='btn btn-primary' ng-click='post2()'>Post2</button> 
+            </div>  
+        </div>
+       
+      </div>
+
+
+      <script src="/assets/js/lib/angular.min.js"></script>
+      <script src="/assets/js/lib/axios.min.js"></script>
+      <script src="/assets/js/app.js"></script>
+      <script src="/assets/js/request.js"></script>
+    </body>
+</html>

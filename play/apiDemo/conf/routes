@@ -4,14 +4,25 @@
 # ~~~~
 
 # An example controller showing a sample home page
+GET     /home                               controllers.HomeController.index
+
 GET     /api/fetch1                         controllers.HomeController.fetch1
 GET     /api/fetch2                         controllers.HomeController.fetch2
 GET     /api/fetch3                         controllers.HomeController.fetch3
 GET     /api/fetch4                         controllers.HomeController.fetch4
 GET     /api/fetch5                         controllers.HomeController.fetch5
 GET     /api/fetch6                         controllers.HomeController.fetch6
+GET     /api/fetch7                         controllers.HomeController.fetch7
 
-GET     /api/req/fetch1                     controllers.RequestController.fetch1
+GET     /api/req/send1                      controllers.RequestController.send1
+GET     /api/req/send11                     controllers.RequestController.send11
+GET     /api/req/send2/:id                  controllers.RequestController.send2(id: Int)
+POST    /api/req/send3                      controllers.RequestController.send3
+POST    /api/req/send4                      controllers.RequestController.send4
+
+GET     /api/brand/fetch1                   controllers.BrandController.fetch1
+POST    /api/brand/post1                    controllers.BrandController.post1
+POST    /api/brand/post2                    controllers.BrandController.post2
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
