@@ -24,5 +24,7 @@ GET     /api/brand/fetch1                   controllers.BrandController.fetch1
 POST    /api/brand/post1                    controllers.BrandController.post1
 POST    /api/brand/post2                    controllers.BrandController.post2
 
+GET     /api/some/fetch1                    controllers.SomeController.fetch1
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
