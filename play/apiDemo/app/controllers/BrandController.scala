@@ -14,10 +14,35 @@ class BrandController @Inject()(brandService: BrandService, cc: ControllerCompon
 (implicit exec: ExecutionContext) extends AbstractController(cc) {
 
   implicit val brandFormat = Json.format[Brand]
+  implicit val productFormat = Json.format[Product]
 
   def fetch1() = Action.async { implicit request: Request[AnyContent] =>
     brandService.fetchAll map { 
       brands => Ok(Json.toJson(brands))
+    } 
+  }
+
+  def fetchProduct() = Action.async { implicit request: Request[AnyContent] =>
+    brandService.fetchAllProduct map { 
+      products => Ok(Json.toJson(products))
+    } 
+  }
+
+  def fetchProductBrand() = Action.async { implicit request: Request[AnyContent] =>
+    brandService.fetchProductBranch map { 
+      o => Ok(Json.toJson(o))
+    } 
+  }
+
+  def fetchProductBrand2() = Action.async { implicit request: Request[AnyContent] =>
+    brandService.fetchProductBranch2 map { result =>
+      val a =  for (item <- result) yield {
+        Json.obj(
+          "product" -> item._1,
+          "brand" -> item._2
+        )
+      }
+      Ok(Json.toJson(a))
     } 
   }
 

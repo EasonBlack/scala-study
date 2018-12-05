@@ -21,6 +21,9 @@ POST    /api/req/send3                      controllers.RequestController.send3
 POST    /api/req/send4                      controllers.RequestController.send4
 
 GET     /api/brand/fetch1                   controllers.BrandController.fetch1
+GET     /api/brand/fetchProduct             controllers.BrandController.fetchProduct
+GET     /api/brand/fetchProductBrand        controllers.BrandController.fetchProductBrand
+GET     /api/brand/fetchProductBrand2       controllers.BrandController.fetchProductBrand2
 POST    /api/brand/post1                    controllers.BrandController.post1
 POST    /api/brand/post2                    controllers.BrandController.post2
 
