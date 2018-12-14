@@ -15,6 +15,7 @@ class BrandController @Inject()(brandService: BrandService, cc: ControllerCompon
 
   implicit val brandFormat = Json.format[Brand]
   implicit val productFormat = Json.format[Product]
+  implicit val repositoryFormat = Json.format[Repository]
 
   def fetch1() = Action.async { implicit request: Request[AnyContent] =>
     brandService.fetchAll map { 
@@ -24,6 +25,11 @@ class BrandController @Inject()(brandService: BrandService, cc: ControllerCompon
 
   def fetchProduct() = Action.async { implicit request: Request[AnyContent] =>
     brandService.fetchAllProduct map { 
+      products => Ok(Json.toJson(products))
+    } 
+  }
+  def fetchProduct2() = Action.async { implicit request: Request[AnyContent] =>
+    brandService.fetchAllProduct2 map { 
       products => Ok(Json.toJson(products))
     } 
   }
@@ -45,6 +51,69 @@ class BrandController @Inject()(brandService: BrandService, cc: ControllerCompon
       Ok(Json.toJson(a))
     } 
   }
+
+  def fetchProductBrand3() = Action.async { implicit request: Request[AnyContent] => 
+    brandService.fetchProductBranch3 map { result =>
+      val a =  for (item <- result) yield {
+        Json.obj(
+          "brand" -> item._1,
+          "repository" -> item._2.name,
+          "product" -> item._3
+        )
+      }
+      Ok(Json.toJson(a))
+    } 
+  }
+  def fetchProductBrand4() = Action.async { implicit request: Request[AnyContent] => 
+    brandService.fetchProductBranch4 map { result =>
+      val a =  for (item <- result) yield {
+        Json.obj(
+          "brand" -> item._1,
+          "repository" -> item._2.name,
+          "product" -> item._3
+        )
+      }
+      Ok(Json.toJson(a))
+    } 
+  }
+  def fetchProductBrand5() = Action.async { implicit request: Request[AnyContent] => 
+    brandService.fetchProductBranch5 map { result =>
+      val a =  for (item <- result) yield {
+        Json.obj(
+          "brand" -> item._1,
+          "repository" -> item._2,
+          "product" -> item._3
+        )
+      }
+      Ok(Json.toJson(a))
+    } 
+  }
+  def fetchProductBrand6() = Action.async { implicit request: Request[AnyContent] => 
+    brandService.fetchProductBranch6 map { result =>
+      val a =  for (item <- result) yield {
+        Json.obj(
+          "brand" -> item._1,
+          "repository" -> item._2,
+          "productId" -> item._3,
+          "productBid" -> item._4,
+          "productName" -> item._5
+        )
+      }
+      Ok(Json.toJson(a))
+    } 
+  }
+  def fetchProductBrand7() = Action.async { implicit request: Request[AnyContent] => 
+    brandService.fetchProductBranch7 map { result =>
+      val a =  for (item <- result) yield {
+        Json.obj(
+          "brand" -> item._1,
+          "products"-> item._2
+        )
+      }
+      Ok(Json.toJson(a))
+    } 
+  }
+
 
   def post1() = Action.async { implicit request: Request[AnyContent] =>
     brandService.autoAdd1() map { 

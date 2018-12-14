@@ -16,12 +16,23 @@ object Tables  {
 
   class ProductTable(tag: Tag) extends Table[Product](tag, "product") {
     def id = column[Int]("id", O.PrimaryKey,O.AutoInc)
-    def bid = column[Int]("id")
+    def bid = column[Int]("bid")
     def name = column[String]("name")
-    override def * = (id.?, bid.?, name) <> (Product.tupled, Product.unapply) 
+    override def * = (id.?, bid, name) <> (Product.tupled, Product.unapply) 
   }
 
   val productTables = TableQuery[ProductTable]
+
+
+
+  class RepositoryTable(tag: Tag) extends Table[Repository](tag, "repository") {
+    def id = column[Int]("id", O.PrimaryKey,O.AutoInc)
+    def brandId = column[Int]("brandId")
+    def name = column[String]("name")
+    override def * = (id.?, brandId, name) <> (Repository.tupled, Repository.unapply) 
+  }
+
+  val repositoryTables = TableQuery[RepositoryTable]
 
   val test  = "aaaaaaa"
 
