@@ -53,18 +53,19 @@ class BrandService  @Inject()(protected val dbConfigProvider: DatabaseConfigProv
       println(result)
       result
     }
+    // 下面这样就可以
+    // db.run((_productTables join _brandTables on (_.bid === _.id)).result)
   }
 
   def fetchProductBranch2: Future[Seq[(Product, String)]] = {
     db.run((_productTables join _brandTables on (_.bid === _.id)).result).map { 
-      result => result.map {
+      result => result.map (
         item => (item._1, item._2.name)
-      }
+      )
     }
   }
 
   def fetchProductBranch3: Future[Seq[(Brand, Repository, Option[Product])]] = {
-
     db.run(
       (
         _brandTables 
@@ -72,6 +73,8 @@ class BrandService  @Inject()(protected val dbConfigProvider: DatabaseConfigProv
         joinLeft _productTables on (_._1.id === _.bid)
       ).result)
       .map {  result =>
+        println("get originnal data")
+        println(result)
         result map {
            case((brand, repository), product) => (brand, repository, product)
         }
