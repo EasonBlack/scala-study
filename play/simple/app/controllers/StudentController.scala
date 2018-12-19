@@ -30,7 +30,7 @@ class StudentController @Inject()(db: Database,  cc: ControllerComponents) exten
       
       while (rs.next()) {
         println(rs.getString(1))
-        list.+=(Student(rs.getString(1), rs.getString(2), rs.getString(3)))
+        list.+=(Student(rs.getInt(1), rs.getString(2), rs.getString(3)))
       }
     } finally {
       conn.close()
@@ -49,7 +49,7 @@ class StudentController @Inject()(db: Database,  cc: ControllerComponents) exten
       
       while (rs.next()) {
         println(rs.getString(1))
-        list.+=(Student(rs.getString(1), rs.getString(2), rs.getString(3)))
+        list.+=(Student(rs.getInt(1), rs.getString(2), rs.getString(3)))
       }
     } finally {
       conn.close()

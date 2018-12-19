@@ -6,6 +6,12 @@
 # An example controller showing a sample home page
 GET     /                           controllers.HomeController.index
 GET     /main                       controllers.HomeController.main
+GET     /test                       controllers.HomeController.test
+POST    /api/addcount               controllers.HomeController.testAdd
+POST    /api/minuscount             controllers.HomeController.testMinus
+GET     /api/showcount              controllers.HomeController.testShow
+
+
 GET     /api/hello/:name            controllers.HomeController.hello(name: String)
 GET     /fetchUser                  controllers.HomeController.fetchUser
 GET     /fetchSth                   controllers.HomeController.fetchSth

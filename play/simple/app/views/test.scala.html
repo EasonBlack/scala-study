@@ -1,0 +1,47 @@
+@()
+
+<html lang="en">
+    <head>
+        <title>TEST</title>
+    </head>
+    <body>
+        <div id='txtCount'></div>
+        <div id='txtNum'></div>
+        <button id='btnTest1'>Add</button>
+        <button id='btnTest2'>Minus</button>
+    </body>
+    <script src='/assets/javascripts/axios.min.js'></script>
+    <script>
+        let btnTest1 = document.getElementById('btnTest1')
+        let btnTest2 = document.getElementById('btnTest2')
+
+        let txtCount = document.getElementById('txtCount')
+        let txtNum = document.getElementById('txtNum')
+
+        let showResult = function() {
+            axios.get('/api/showcount')
+            .then(res=>{
+                console.log(res.data);
+                txtCount.innerHTML = res.data.data || 0;
+                txtNum.innerHTML = res.data.num || 0;
+            })
+        }
+        showResult();
+        btnTest1.addEventListener('click', ()=>{
+            axios.post('/api/addcount')
+            .then(res=>{
+                showResult()
+            })
+        })
+
+        btnTest2.addEventListener('click', ()=>{
+            axios.post('/api/minuscount')
+            .then(res=>{
+                showResult()
+            })
+        })
+    
+
+    </script>
+        
+</html>

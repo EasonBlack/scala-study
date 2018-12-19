@@ -9,11 +9,14 @@ import play.api.http.HttpEntity
 import akka.util.ByteString
 import play.api.libs.json._
 import play.api.mvc.AnyContent
+import services._
 
 case class User(id:Int,name:String)
 
 @Singleton
-class HomeController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
+class HomeController @Inject()(testService: TestService, cc: ControllerComponents) extends AbstractController(cc) {
+
+  private var num : Int = 0;
 
   def index() = Action { implicit request: Request[AnyContent] =>
     Redirect("/main")
@@ -38,6 +41,32 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
   def main = Action {
     Ok(views.html.index())
   }
+
+  def test = Action {
+    Ok(views.html.test())
+  }
+
+  def testAdd = Action {
+    num = num + 1
+    testService.addCount()
+    Ok("")
+  }
+
+  def testMinus = Action {
+     num = num - 1
+    testService.minusCount()
+    Ok("")
+  }
+
+  def testShow = Action {
+    val l = testService.showCount();
+    val a = Json.obj(
+          "data" -> l,
+          "num" -> num
+        )
+    Ok(Json.toJson(a))
+  }
+
 
 
   val userForm = Form(
