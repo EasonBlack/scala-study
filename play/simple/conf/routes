@@ -11,6 +11,10 @@ POST    /api/addcount               controllers.HomeController.testAdd
 POST    /api/minuscount             controllers.HomeController.testMinus
 GET     /api/showcount              controllers.HomeController.testShow
 
+GET     /home2                      controllers.Home2Controller.index
+GET     /home2next                  controllers.Home2Controller.indexnext
+GET     /next                       controllers.Home2Controller.next
+
 
 GET     /api/hello/:name            controllers.HomeController.hello(name: String)
 GET     /fetchUser                  controllers.HomeController.fetchUser

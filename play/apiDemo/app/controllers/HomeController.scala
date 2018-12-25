@@ -61,7 +61,19 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
     }
   }
 
-   def fetch7() = Action.async { implicit request: Request[AnyContent] =>   
+  def fetch7() = Action.async { implicit request: Request[AnyContent] =>   
     Future(Ok("Success"))
+  }
+
+  private def testFun(msg: Option[String]=None) = msg match {
+    case None => "Hello World"
+    case Some(m) => m
+  }
+  
+  
+  def fetch8() = Action { implicit request =>
+    val a  = request.queryString.get("test").map(_.head)
+    Ok(testFun(a))
+
   }
 }

@@ -8,6 +8,8 @@ import scala.concurrent.ExecutionContext
 import models._
 import services._
 
+import scala.collection.mutable.ListBuffer
+
 
 @Singleton
 class BrandController @Inject()(brandService: BrandService, cc: ControllerComponents)
@@ -112,6 +114,37 @@ class BrandController @Inject()(brandService: BrandService, cc: ControllerCompon
       }
       Ok(Json.toJson(a))
     } 
+  }
+
+  def fetchProductBrand8() = Action.async { implicit request: Request[AnyContent] => 
+    for {
+      brands <- brandService.fetchAll()
+      products <- brandService.fetchAllProduct
+    } yield {
+      Ok(Json.toJson(JsArray(brands map { 
+          case(b: Brand) => {
+            Json.obj(  
+              "id" -> b.id,
+              "name" -> b.name,
+              "products" -> products.filter(_.bid == b.id.get)
+            )
+          }
+       
+      })))
+    }
+   
+  }
+
+  def fetchProductBrand9() = Action.async { implicit request: Request[AnyContent] => 
+    brandService.fetchProductBranch9 map {  result =>
+        val a =  for (item <- result) yield {
+        Json.obj(
+          "brand" -> item._1,
+          "count" -> item._2
+        )
+      }
+      Ok(Json.toJson(a))
+    }
   }
 
 

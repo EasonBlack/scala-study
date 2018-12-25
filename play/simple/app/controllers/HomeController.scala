@@ -38,12 +38,21 @@ class HomeController @Inject()(testService: TestService, cc: ControllerComponent
     Ok("Hello " + name)
   }
 
-  def main = Action {
-    Ok(views.html.index())
+  def main = Action { request =>
+    Ok(views.html.index()).withSession("test-session" -> "tttttttttttttttt")
   }
 
-  def test = Action {
-    Ok(views.html.test())
+  def test = Action { request =>
+    //  request.session.get("test-session").map { test =>
+    //   Ok(views.html.test(test))
+    //  }.getOrElse {
+    //      Ok(views.html.test(""))
+    // }
+    request.session.get("test-session")  match {
+      case None =>  Ok(views.html.test(""))
+      case Some(t) =>  Ok(views.html.test(t))
+    }
+  
   }
 
   def testAdd = Action {

@@ -33,8 +33,9 @@ class BrandService  @Inject()(protected val dbConfigProvider: DatabaseConfigProv
 
       
   def fetchAll(): Future[Seq[Brand]] = {
-    db.run(_brandTables.filter(_.id=!=1).result)
+    db.run(_brandTables.filter(_.id=!= -1).result)
   }
+
 
   def fetchAllProduct: Future[Seq[Product]] = {
     // db.run(_productTables.result)
@@ -45,20 +46,60 @@ class BrandService  @Inject()(protected val dbConfigProvider: DatabaseConfigProv
   }
 
   def fetchAllProduct2: Future[Seq[Product]] = {
-    db.run(sql"select * from product".as[Product])
+    //# option 1
+    // db.run(sql"select * from product".as[Product])
+
+    //# option 2
+    // db.run(sql"select * from product".as[Product]).map { result => 
+    //   result
+    // }
+    
+    //# option 3
+    // db.run(sql"select * from product".as[Product]).map { results => 
+    //   results map {
+    //     result=> (result)
+    //   }
+    // }
+
+    //
+    db.run(sql"select * from product".as[Product]).map { results =>
+      val a  = 1
+      results.filter(_.id.get > a) 
+    }
   }
 
   def fetchProductBranch: Future[Seq[(Product, Brand)]] = {
-    db.run((_productTables join _brandTables on (_.bid === _.id)).result).map { result =>
-      println(result)
-      result
-    }
-    // 下面这样就可以
+    // #1
+    // db.run((_productTables join _brandTables on (_.bid === _.id)).result).map { result =>
+    //   println(result)
+    //   result
+    // }
+
+    // #2 下面这样就可以
     // db.run((_productTables join _brandTables on (_.bid === _.id)).result)
+
+    //
+    db.run(sql"select * from product".as[Product]).flatMap { products =>
+      db.run(sql"select * from brand".as[Brand]).map { brands =>
+        println(products)
+        println(brands)  
+        products.toSeq map { product =>
+          val productId = product.bid
+          println(productId)
+          val brand = brands.toSeq.filter(_.id.get == product.bid).head
+          (product, brand)
+            
+        }
+      }
+    }
   }
 
   def fetchProductBranch2: Future[Seq[(Product, String)]] = {
-    db.run((_productTables join _brandTables on (_.bid === _.id)).result).map { 
+    val query = (_productTables join _brandTables on (_.bid === _.id))
+    println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+    println(query.result.statements.head)
+    println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+    db.run(query.result).map { 
       result => result.map (
         item => (item._1, item._2.name)
       )
@@ -127,6 +168,15 @@ class BrandService  @Inject()(protected val dbConfigProvider: DatabaseConfigProv
     ) 
     
   }
+
+
+   def fetchProductBranch9: Future[Seq[(Int, Int)]] = {
+      // #1 
+      db.run(_productTables.groupBy(_.bid).map {
+       case (bid, products) => (bid, products.length)
+      }.result) 
+
+    }
 
 
   def autoAdd1() : Future[Unit] = {

@@ -1,0 +1,59 @@
+
+
+<html lang="en">
+    <head>
+        <title>TEST</title>
+    </head>
+    <body>
+      <div>
+          <button id='btn1'>Value 1</button>
+          <button id='btn2'>Value 2</button>
+          <button id='btn3'>Value 3</button>
+          <button id='btn4'>Value 4</button>
+      </div>
+    </body>
+    <script src='/assets/javascripts/axios.min.js'></script>
+    <script>
+        let btn1 = document.getElementById('btn1')
+        let btn2 = document.getElementById('btn2')
+        let btn3 = document.getElementById('btn3')
+        let btn4 = document.getElementById('btn4')
+
+        btn1.addEventListener('click', ()=>{
+            axios.get('/next',  {params: {
+                flag: 1
+            }})
+            .then(res=>{
+                location.href = '/home2next'
+            })
+        })
+        btn2.addEventListener('click', ()=>{
+            axios.get('/next',  {params: {
+                flag: 2
+            }})
+            .then(res=>{
+                location.href = '/home2next'
+            })
+        })
+        btn3.addEventListener('click', ()=>{
+            axios.get('/next',  {params: {
+                flag: 3
+            }})
+            .then(res=>{
+                location.href = '/home2next'
+            })
+        })
+        btn4.addEventListener('click', ()=>{
+            axios.get('/next',  {params: {
+                flag: 4
+            }})
+            .then(res=>{
+                location.href = '/home2next'
+            })
+        })
+        
+    
+
+    </script>
+        
+</html>

@@ -13,6 +13,7 @@ GET     /api/fetch4                         controllers.HomeController.fetch4
 GET     /api/fetch5                         controllers.HomeController.fetch5
 GET     /api/fetch6                         controllers.HomeController.fetch6
 GET     /api/fetch7                         controllers.HomeController.fetch7
+GET     /api/fetch8                         controllers.HomeController.fetch8
 
 GET     /api/req/send1                      controllers.RequestController.send1
 GET     /api/req/send11                     controllers.RequestController.send11
@@ -30,8 +31,16 @@ GET     /api/brand/fetchProductBrand4       controllers.BrandController.fetchPro
 GET     /api/brand/fetchProductBrand5       controllers.BrandController.fetchProductBrand5
 GET     /api/brand/fetchProductBrand6       controllers.BrandController.fetchProductBrand6
 GET     /api/brand/fetchProductBrand7       controllers.BrandController.fetchProductBrand7
+GET     /api/brand/fetchProductBrand8       controllers.BrandController.fetchProductBrand8
+GET     /api/brand/fetchProductBrand9       controllers.BrandController.fetchProductBrand9
 POST    /api/brand/post1                    controllers.BrandController.post1
 POST    /api/brand/post2                    controllers.BrandController.post2
+
+GET     /api/brand2/fetch1                  controllers.Brand2Controller.fetch1
+GET     /api/brand2/fetch2                  controllers.Brand2Controller.fetch2
+GET     /api/brand2/fetch3                  controllers.Brand2Controller.fetch3
+PUT     /api/brand2/put1                    controllers.Brand2Controller.put1
+
 
 GET     /api/some/fetch1                    controllers.SomeController.fetch1
 
