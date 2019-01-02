@@ -19,14 +19,16 @@ lazy val `hello-api` = (project in file("hello-api"))
 
 lazy val `hello-impl` = (project in file("hello-impl"))
   .enablePlugins(LagomScala)
-  // .settings(lagomServicePort := 9089)
+  //.settings(lagomServicePort := 9091)
   .settings(
     libraryDependencies ++= Seq(
-      lagomScaladslPersistenceCassandra,
-      lagomScaladslKafkaBroker,
-      lagomScaladslTestKit,
+  
+      lagomScaladslPubSub,
       macwire,
-      scalaTest
+      
+      lagomScaladslApi ,
+      lagomScaladslPersistenceJdbc,
+      "mysql" % "mysql-connector-java" % "8.0.12"
     )
   )
   .settings(lagomForkedTestSettings: _*)
