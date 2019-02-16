@@ -1,0 +1,12 @@
+@(title: String)(content2: (String) => Html)(content: Html)
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>@title</title>
+    </head>
+    <body>
+        @content
+        @content2("aaaaa")
+    </body>
+</html>

@@ -14,13 +14,31 @@ import scala.collection.mutable.ListBuffer
 @Singleton
 class Brand2Controller @Inject()(brand2Service: Brand2Service, cc: ControllerComponents)
 (implicit exec: ExecutionContext) extends AbstractController(cc) { 
+  
+  implicit val productFormat = Json.format[Product]
+
+  implicit private[this] val getResults1_1 = new Writes[(Product, Option[Int])] {
+    override def writes(o: (Product, Option[Int])): JsValue = {
+      val productJson = Json.toJson(o._1).asInstanceOf[JsObject]
+      o._2 match {
+        case None => productJson
+        case Some(i) => productJson ++ Json.obj("value" -> i)
+      }
+    }
+  }
+
 
   implicit val brandFormat = Json.format[Brand]
-  implicit val productFormat = Json.format[Product]
+ 
   implicit val repositoryFormat = Json.format[Repository]
 
    def fetch1() = Action.async { implicit request: Request[AnyContent] =>
     brand2Service.fetchProductBranch1 map { 
+      items => Ok(Json.toJson(items))
+    } 
+  }
+   def fetch1_1() = Action.async { implicit request: Request[AnyContent] =>
+    brand2Service.fetchProductBranch1_1 map { 
       items => Ok(Json.toJson(items))
     } 
   }
@@ -48,4 +66,5 @@ class Brand2Controller @Inject()(brand2Service: Brand2Service, cc: ControllerCom
       Ok("successful")
     } 
   }
+
 }

@@ -6,6 +6,7 @@
 # An example controller showing a sample home page
 GET     /                           controllers.HomeController.index
 GET     /main                       controllers.HomeController.main
+GET     /view2                      controllers.View2Controller.index
 GET     /test                       controllers.HomeController.test
 POST    /api/addcount               controllers.HomeController.testAdd
 POST    /api/minuscount             controllers.HomeController.testMinus

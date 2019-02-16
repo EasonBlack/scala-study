@@ -9,6 +9,8 @@ GET     /home                                 eason.controllers.DemoController.i
 GET     /api/empty                            eason.controllers.DemoController.empty
 GET     /api/somthing                         eason.controllers.DemoController.somthing
 GET     /api/somthing2                        eason.controllers.DemoController.somthing2
+GET     /api/somthing3                        eason.controllers.DemoController.somthing3
+GET     /api/somthing31                        eason.controllers.DemoController.somthing31
 
 
 # Map static resources from the /public folder to the /assets URL path

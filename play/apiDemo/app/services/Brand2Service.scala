@@ -24,6 +24,7 @@ class Brand2Service  @Inject()(protected val dbConfigProvider: DatabaseConfigPro
   val _repositoryTables = Tables.repositoryTables
 
 
+
   implicit private[this] val getResults1 = GetResult(r => (Product(r.<<[Option[Int]], r.<<[Int], r.<<[String])))
   implicit private[this] val getResults2 = GetResult(r => (Repository(r.<<[Option[Int]], r.<<[Int], r.<<[String])))
   implicit private[this] val getResults3 = GetResult(r => (Brand(r.<<[Option[Int]], r.<<[String])))
@@ -45,6 +46,16 @@ class Brand2Service  @Inject()(protected val dbConfigProvider: DatabaseConfigPro
      """.as[(Product)]).map { products=>
        products.toSeq map {
          product => (product, 1, "aaa")
+        }
+     }  
+  }
+
+   def fetchProductBranch1_1: Future[Seq[(Product, Option[Int])]] = {
+     db.run(sql"""
+      select * from product
+     """.as[(Product)]).map { products=>
+       products.toSeq map {
+         product => (product, Some(1))
         }
      }  
   }
@@ -73,4 +84,6 @@ class Brand2Service  @Inject()(protected val dbConfigProvider: DatabaseConfigPro
     db.run(_productTables.filter(_.id === id).map(_.name).update(name)).map(_ => Unit)
   }
    
+
+  
 }

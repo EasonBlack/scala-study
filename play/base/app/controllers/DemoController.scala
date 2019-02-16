@@ -45,5 +45,30 @@ class DemoController @Inject()(cc: ControllerComponents) extends BaseController 
    }
    Ok(a1 + b1)
   }
+
+  def somthing3() = Action {
+    Ok(Json.obj(
+      "a" -> 1,
+      "b" -> 2
+    ))
+  }
+
+  def somthing31() = Action {
+    val a = Map(
+      "a"->1, 
+      "b"->2,
+      "c"->Seq(
+        Json.obj(
+          "d"-> 11,
+          "e"-> 33
+        ),
+        Json.obj(
+          "d"-> 22,
+          "e"-> 44
+        )
+      )
+    )
+    Ok(a.toString)
+  }
   
 }
