@@ -24,6 +24,8 @@ class Bar {
   def apply() = println("this is bar")
 }
 
+case class Account(id: Long, name: String){}
+
 @Singleton
 class DemoController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
 
@@ -63,7 +65,13 @@ class DemoController @Inject()(cc: ControllerComponents) extends AbstractControl
     val bar = new Bar
     bar()
     println("====================")
+    var _a = Account(1L, "aaa")
+    var __a =  testAccount(_a.id, _a.name)
     Ok("test")
+  }
+
+  def testAccount(id: Long, name: String) = {
+    id.toString + name.toString
   }
 
   def testRequest(name: String) = Action { implicit request: Request[AnyContent] =>

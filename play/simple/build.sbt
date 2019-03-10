@@ -16,6 +16,10 @@ libraryDependencies += "mysql" % "mysql-connector-java" % "5.1.40"
 //libraryDependencies += "com.typesafe.slick" %% "slick" % "3.2.3"
 libraryDependencies += "com.typesafe.play" %% "play-slick" % "3.0.1"
 
+libraryDependencies += "com.google.zxing" % "core" % "2.2"
+libraryDependencies += "com.google.zxing" % "javase" % "2.2"
+// libraryDependencies += "com.google.zxing" % "zxing-parent" % "3.3.3"
+
 
 // Adds additional packages into Twirl
 //TwirlKeys.templateImports += "xxx.controllers._"

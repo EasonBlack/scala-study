@@ -55,6 +55,13 @@ class Brand2Controller @Inject()(brand2Service: Brand2Service, cc: ControllerCom
     } 
   }
 
+  def fetch4() = Action.async { implicit request: Request[AnyContent] =>
+    val names = Seq("A1", "A2")
+    brand2Service.fetchProductBranch4(names) map { 
+      items => Ok(Json.toJson(items))
+    } 
+  }
+
   def put1 = Action.async { request =>
     val id =  request.queryString.get("id").map(_.head) match {
       case None => 0
@@ -65,6 +72,13 @@ class Brand2Controller @Inject()(brand2Service: Brand2Service, cc: ControllerCom
     brand2Service.putProduct(id, name).map { request=>
       Ok("successful")
     } 
+  }
+
+  def multipepost = Action.async { request =>
+     val names = Seq("aaa", "bbb")
+     brand2Service.multipepost(names) map { 
+       _ => Ok("successful")
+     }
   }
 
 }

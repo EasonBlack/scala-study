@@ -40,7 +40,9 @@ GET     /api/brand2/fetch1                  controllers.Brand2Controller.fetch1
 GET     /api/brand2/fetch1_1                controllers.Brand2Controller.fetch1_1
 GET     /api/brand2/fetch2                  controllers.Brand2Controller.fetch2
 GET     /api/brand2/fetch3                  controllers.Brand2Controller.fetch3
+GET     /api/brand2/fetch4                  controllers.Brand2Controller.fetch4
 PUT     /api/brand2/put1                    controllers.Brand2Controller.put1
+GET     /api/brand2/multipepost             controllers.Brand2Controller.multipepost
 
 
 GET     /api/some/fetch1                    controllers.SomeController.fetch1

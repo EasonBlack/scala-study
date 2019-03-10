@@ -80,8 +80,21 @@ class Brand2Service  @Inject()(protected val dbConfigProvider: DatabaseConfigPro
     Future.successful(list)
   }
 
+
+  def fetchProductBranch4(names: Seq[String]): Future[Seq[Product]] = {
+    val query = _productTables.filter(t=>t.name inSetBind names)
+    println(query.result.statements.head)
+    db.run(query.result)
+  }
+
   def putProduct(id: Int, name: String): Future[Unit] = {
     db.run(_productTables.filter(_.id === id).map(_.name).update(name)).map(_ => Unit)
+  }
+
+  def multipepost(names: Seq[String]): Future[Unit] = {
+    db.run(DBIO.seq(names map { name => 
+       _brandTables += Brand(None, name)
+    }:_*).transactionally).map { _ => Unit }
   }
    
 
