@@ -29,7 +29,8 @@ object Tables  {
     def id = column[Int]("id", O.PrimaryKey,O.AutoInc)
     def brandId = column[Int]("brandId")
     def name = column[String]("name")
-    override def * = (id.?, brandId, name) <> (Repository.tupled, Repository.unapply) 
+    def num = column[Int]("num")
+    override def * = (id.?, brandId, name, num) <> (Repository.tupled, Repository.unapply) 
   }
 
   val repositoryTables = TableQuery[RepositoryTable]

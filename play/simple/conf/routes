@@ -35,7 +35,11 @@ GET     /demo/testRequest/:name      controllers.DemoController.testRequest(name
 
 POST    /saveSth                     controllers.HomeController.saveSth
 
+GET     /zxing                       controllers.ZxingController.view
 GET     /zxing/test                  controllers.ZxingController.index
+GET     /zxing/test2                 controllers.ZxingController.index2
+POST    /api/file/img                controllers.ZxingController.updatefile
+POST    /api/testZxing               controllers.ZxingController.testZxing
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

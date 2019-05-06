@@ -23,14 +23,13 @@ class BrandService  @Inject()(protected val dbConfigProvider: DatabaseConfigProv
   println(Tables.test);
 
   implicit private[this] val getResults1 = GetResult(r => (Product(r.<<[Option[Int]], r.<<[Int], r.<<[String])))
-  implicit private[this] val getResults2 = GetResult(r => (Repository(r.<<[Option[Int]], r.<<[Int], r.<<[String])))
+  implicit private[this] val getResults2 = GetResult(r => (Repository(r.<<[Option[Int]], r.<<[Int], r.<<[String], r.<<[Int])))
   implicit private[this] val getResults3 = GetResult(r => (Brand(r.<<[Option[Int]], r.<<[String])))
   implicit private[this] val getResults4 = GetResult(r => (
     Brand(r.<<[Option[Int]], r.<<[String]), 
-    Repository(r.<<[Option[Int]], r.<<[Int], r.<<[String]), 
+    Repository(r.<<[Option[Int]], r.<<[Int], r.<<[String], r.<<[Int]), 
     r.<<[Option[Int]], r.<<[Option[Int]], r.<<[Option[String]]
   ))
-
       
   def fetchAll(): Future[Seq[Brand]] = {
     db.run(_brandTables.filter(_.id=!= -1).result)
@@ -139,6 +138,7 @@ class BrandService  @Inject()(protected val dbConfigProvider: DatabaseConfigProv
       left join product p  on b.id = p.bid
      """.as[(String, String, Option[String])])
   }
+  
 
    def fetchProductBranch6: Future[Seq[(Brand, Repository, Option[Int], Option[Int], Option[String])]] = {
      db.run(sql"""
@@ -178,6 +178,15 @@ class BrandService  @Inject()(protected val dbConfigProvider: DatabaseConfigProv
 
     }
 
+  def fetchSumRepository: Future[Seq[(Int, Int)]] = {
+    db.run(_repositoryTables.groupBy(_.brandId).map {
+      case (brandId, repository) => (brandId , repository.map(r => r.num).sum.get)
+    }.result)
+  }
+
+  def fetchSumRepository2 : Future[Int] = {
+    db.run(_repositoryTables.filter(t => t.id > 5).map(_.num).sum.get.result)
+  }
 
   def autoAdd1() : Future[Unit] = {
     db.run(DBIO.seq(

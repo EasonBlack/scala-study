@@ -17,6 +17,7 @@ GET     /api/fetch8                         controllers.HomeController.fetch8
 
 GET     /api/req/send1                      controllers.RequestController.send1
 GET     /api/req/send11                     controllers.RequestController.send11
+GET     /api/req/send12                     controllers.RequestController.send12
 GET     /api/req/send2/:id                  controllers.RequestController.send2(id: Int)
 POST    /api/req/send3                      controllers.RequestController.send3
 POST    /api/req/send4                      controllers.RequestController.send4
@@ -33,6 +34,8 @@ GET     /api/brand/fetchProductBrand6       controllers.BrandController.fetchPro
 GET     /api/brand/fetchProductBrand7       controllers.BrandController.fetchProductBrand7
 GET     /api/brand/fetchProductBrand8       controllers.BrandController.fetchProductBrand8
 GET     /api/brand/fetchProductBrand9       controllers.BrandController.fetchProductBrand9
+GET     /api/brand/fetchSumRepository       controllers.BrandController.fetchSumRepository
+GET     /api/brand/fetchSumRepository2      controllers.BrandController.fetchSumRepository2
 POST    /api/brand/post1                    controllers.BrandController.post1
 POST    /api/brand/post2                    controllers.BrandController.post2
 

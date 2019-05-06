@@ -30,6 +30,49 @@ class RequestController @Inject()(cc: ControllerComponents) extends AbstractCont
     Ok("Success")
   }
 
+  def send12() = Action { implicit request: Request[AnyContent] =>
+    println(request.queryString)
+    val ids = request.queryString("ids")
+    println(ids + " from query");
+    val idsSeq = Seq(ids)
+    println(idsSeq)
+    idsSeq map { id =>
+      println(id)
+    }
+
+    println("xxxxxxxxxxxx")
+    var a = request.queryString.toList
+    println(request.queryString.toList)
+    println(a(0))
+    // println(a(0).ids)
+    println("xxxxxxxxxxxx")
+    val ids2 = request.queryString("ids")
+    val name = request.queryString.get("name")
+    val code = request.getQueryString("code")
+    val name2 = name match {
+      case None => None
+      case Some(b) => {
+        b.head match {
+          case "0" => None
+          case _ => b
+        }
+      }
+     
+    }
+    val code2 = code match {
+      case None => None
+
+      case Some(c) => Seq(c)
+    }
+    
+    println(ids2)
+    println(name)
+    println("name2 is "  + name2)
+    println(code2)
+    
+    Ok(ids2 + " from query")
+  }
+
   def send2(id: Int) = Action { implicit request: Request[AnyContent] =>
     println(id + " from param");
     Ok("Success")

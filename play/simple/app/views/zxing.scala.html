@@ -1,0 +1,59 @@
+
+
+<html lang="en">
+  <head>
+      <title>TEST</title>
+  </head>
+  <body>
+    <div>
+        <input type='file' id='file'></input>
+    </div>
+    <div>
+        <input type='file' id='file2'></input> <label>测试Zxing</label>
+    </div>
+  </body>
+  <script src='/assets/javascripts/axios.min.js'></script>
+  <script src='/assets/javascripts/jquery.min.js'></script>
+  <script>
+    document.getElementById("file").addEventListener('change', function(e){
+      var file = e.target.files[0]
+      var formData = new FormData();
+      formData.append('file', file);
+      // axios.post('/api/file/img', formData)
+      // .then(res=>{
+      //   console.log(res)
+      // })
+
+      $.ajax({
+        url: '/api/file/img',
+        type: 'POST',
+        processData: false,
+        contentType: false,
+        timeout: 60000,
+        data: formData,
+        complete: function () {
+        
+        },
+        success: function (result) {
+          console.log(result)
+        },
+        error: function () {
+          console.log(result)
+        }
+      });
+    })
+
+    document.getElementById("file2").addEventListener('change', function(e){
+      var file = e.target.files[0]
+      var formData = new FormData();
+      formData.append('file', file);
+      axios.post('/api/testZxing', formData)
+      .then(res=>{
+        console.log(res)
+      })
+      
+    })
+  
+  </script>
+      
+</html>
