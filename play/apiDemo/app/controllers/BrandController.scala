@@ -168,6 +168,18 @@ class BrandController @Inject()(brandService: BrandService, cc: ControllerCompon
     }
   }
 
+  def fetchSumRepository3() = Action.async { implicit request: Request[AnyContent] => 
+    for {
+      l <-  brandService.fetchSumRepository3    
+    } yield {
+      val a = Json.obj(
+        "sum" -> l.map(_.num).sum,
+        "count" -> l.length
+      )
+      Ok(Json.toJson(a))
+    }
+  }
+
 
   def post1() = Action.async { implicit request: Request[AnyContent] =>
     brandService.autoAdd1() map { 

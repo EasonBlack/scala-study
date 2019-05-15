@@ -36,6 +36,7 @@ GET     /api/brand/fetchProductBrand8       controllers.BrandController.fetchPro
 GET     /api/brand/fetchProductBrand9       controllers.BrandController.fetchProductBrand9
 GET     /api/brand/fetchSumRepository       controllers.BrandController.fetchSumRepository
 GET     /api/brand/fetchSumRepository2      controllers.BrandController.fetchSumRepository2
+GET     /api/brand/fetchSumRepository3      controllers.BrandController.fetchSumRepository3
 POST    /api/brand/post1                    controllers.BrandController.post1
 POST    /api/brand/post2                    controllers.BrandController.post2
 
@@ -62,6 +63,11 @@ GET     /api/order/fetch5                   controllers.OrderController.fetch5
 GET     /api/order/fetch6                   controllers.OrderController.fetch6
 GET     /api/order/fetch7                   controllers.OrderController.fetch7
 GET     /api/order/fetch8                   controllers.OrderController.fetch8
+
+POST    /api/order                          controllers.OrderController.save1
+POST    /api/order/saveOrder2               controllers.OrderController.saveOrder2
+POST    /api/order/saveOrder3               controllers.OrderController.saveOrder3
+POST    /api/order/saveOrder4               controllers.OrderController.saveOrder4
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

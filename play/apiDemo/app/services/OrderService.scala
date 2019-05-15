@@ -244,6 +244,41 @@ class OrderService  @Inject()(protected val dbConfigProvider: DatabaseConfigProv
     
   }
 
+  def saveOrder(name: String): Future[Int] = {
+    db.run((_orderTables returning _orderTables.map(_.id)) += Order(0, name))
+  }
+
+  def saveOrder2(name: String): Future[Order] = {
+    db.run(((_orderTables returning _orderTables.map(_.id)) += Order(0, name)).map { id =>
+      Order(id, name)
+    })  
+  }
+  def saveOrder3(names: Seq[String]): Future[Seq[Order]] = {
+    db.run(DBIO.sequence(names.map { name => {
+        ((_orderTables returning _orderTables.map(_.id)) += Order(0, name)).flatMap { id =>
+          DBIO.successful(Order(id, name))
+        }
+      }      
+    }).transactionally)  
+  }
+
+  def saveOrder4(orders: Seq[Order]) : Future[Seq[Order]] = {
+    db.run(DBIO.sequence(orders.map { order =>
+      order.id match {
+        case 0 => {
+           ((_orderTables returning _orderTables.map(_.id)) += order).flatMap { id =>
+             DBIO.successful(order.copy(id=id))
+            }
+        }
+        case _ => {
+          _orderTables.filter(t=>t.id===order.id).update(order).flatMap { _ => 
+            DBIO.successful(order)
+          }
+        }
+      }
+    }).transactionally)
+  }
+
 
 
   

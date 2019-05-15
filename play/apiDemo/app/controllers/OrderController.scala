@@ -9,7 +9,7 @@ import models._
 import services._
 
 import scala.collection.mutable.ListBuffer
-
+import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
 class OrderController @Inject()(orderService: OrderService, cc: ControllerComponents)
@@ -26,7 +26,6 @@ class OrderController @Inject()(orderService: OrderService, cc: ControllerCompon
   implicit private[this] val getResults1_3 = Json.format[(Order, Seq[(OrderItem, OrderItemAccount)])] 
 
   // implicit private[this] val getResults1_4 = Json.format[(Order, Seq[(OrderItem, Seq[OrderItemAccount])])] 
-
 
 
   implicit private[this] val getResults1_4 = new Writes[(Order, Seq[(OrderItem, Seq[OrderItemAccount])])] {
@@ -157,6 +156,39 @@ class OrderController @Inject()(orderService: OrderService, cc: ControllerCompon
       items => Ok(Json.toJson(items))
     } 
   }
+
+  def save1() = Action.async { implicit request => 
+    val name = request.getQueryString("name").get
+   
+    orderService.saveOrder(name) map {
+      item => Ok(Json.toJson(item))
+    }
+
+  }
+  def saveOrder2() = Action.async { implicit request => 
+    val name = request.getQueryString("name").get
+    orderService.saveOrder2(name) map {
+      item => Ok(Json.toJson(item))
+    }
+  }
   
+  def saveOrder3() = Action.async { implicit request => 
+    val names = request.getQueryString("names").get
+    val nameArr = names.split(",").toSeq
+    println(names)
+    println(nameArr)
+    orderService.saveOrder3(nameArr) map {
+      items => Ok(Json.toJson(items))
+    }
+  }
+  
+   def saveOrder4() = Action.async(parse.json) { implicit request => 
+    request.body.validate[Seq[Order]].fold(
+      errors => Future.successful( Ok("ERROR")),
+      orders =>  orderService.saveOrder4(orders).map {
+         items => Ok(Json.toJson(items))
+      }
+    )
+  }
 
 }

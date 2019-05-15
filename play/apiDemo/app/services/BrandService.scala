@@ -188,6 +188,10 @@ class BrandService  @Inject()(protected val dbConfigProvider: DatabaseConfigProv
     db.run(_repositoryTables.filter(t => t.id > 5).map(_.num).sum.get.result)
   }
 
+  def fetchSumRepository3 : Future[Seq[Repository]] = {
+    db.run(_repositoryTables.filter(t => t.id > 1).result)
+  }
+
   def autoAdd1() : Future[Unit] = {
     db.run(DBIO.seq(
       _brandTables += Brand(None, "aaaa"),
