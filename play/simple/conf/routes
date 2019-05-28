@@ -32,6 +32,7 @@ GET     /slick/studentjoin2          controllers.StudentSlickController.studentJ
 
 GET     /demo/index                  controllers.DemoController.index
 GET     /demo/testRequest/:name      controllers.DemoController.testRequest(name: String)
+GET     /demo/testGetElse            controllers.DemoController.testGetElse
 
 POST    /saveSth                     controllers.HomeController.saveSth
 

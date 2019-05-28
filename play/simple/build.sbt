@@ -18,6 +18,7 @@ libraryDependencies += "com.typesafe.play" %% "play-slick" % "3.0.1"
 
 libraryDependencies += "com.google.zxing" % "core" % "2.2"
 libraryDependencies += "com.google.zxing" % "javase" % "2.2"
+
 // libraryDependencies += "com.google.zxing" % "zxing-parent" % "3.3.3"
 
 

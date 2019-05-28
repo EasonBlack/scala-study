@@ -48,7 +48,8 @@ object Tables  {
     def id = column[Int]("id", O.PrimaryKey,O.AutoInc)
     def orderId = column[Int]("orderId")
     def name = column[String]("name")
-    override def * = (id, orderId, name) <> (OrderItem.tupled, OrderItem.unapply) 
+    def no = column[Option[Int]]("no")
+    override def * = (id, orderId, name, no) <> (OrderItem.tupled, OrderItem.unapply) 
   }
 
   val orderItemTables = TableQuery[OrderItemTable]

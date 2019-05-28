@@ -244,6 +244,11 @@ class OrderService  @Inject()(protected val dbConfigProvider: DatabaseConfigProv
     
   }
 
+  def fetchOrderItem1() : Future[Seq[OrderItem]] = {
+    var query = _orderItemTables
+    db.run(query.sortBy(_.orderId.asc).result)
+  }
+
   def saveOrder(name: String): Future[Int] = {
     db.run((_orderTables returning _orderTables.map(_.id)) += Order(0, name))
   }

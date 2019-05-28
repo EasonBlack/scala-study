@@ -157,6 +157,43 @@ class OrderController @Inject()(orderService: OrderService, cc: ControllerCompon
     } 
   }
 
+  def fetchOrderItem1() = Action.async {  implicit request: Request[AnyContent] =>
+    orderService.fetchOrderItem1() map {  items =>
+      var currentOrderId = 0
+      var currentSeq = 1
+      var currentStep = 0
+      Ok(JsArray(items.map {
+        case item => {
+          var itemStep = 0
+          if(currentOrderId == item.orderId) {
+            currentSeq = currentSeq + 1
+            itemStep =  item.no.getOrElse(0) - currentStep
+          } else {
+            currentOrderId = item.orderId
+            currentSeq = 1
+            currentStep = 0
+            itemStep =  item.no.getOrElse(0)
+          }
+          currentStep = item.no.getOrElse(0)
+          Json.obj(
+            "orderId" -> item.orderId,
+            "no" -> item.no,
+            "step" -> itemStep,
+            "seq" -> currentSeq
+          )
+          
+        }
+      }))
+      //items => Ok(Json.toJson(items))
+      // Ok(JsArray(items.map { case (item) => 
+      //   Json.obj(
+      //     "orderId" -> item.orderId,
+      //     "no" -> item.no
+      //   )
+      // }))
+    }
+  }
+
   def save1() = Action.async { implicit request => 
     val name = request.getQueryString("name").get
    

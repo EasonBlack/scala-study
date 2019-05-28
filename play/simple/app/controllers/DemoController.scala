@@ -79,5 +79,15 @@ class DemoController @Inject()(cc: ControllerComponents) extends AbstractControl
     Ok(Json.toJson(request.queryString))
   }
 
+  def testGetElse = Action { implicit request => 
+    {
+      {
+        request.getQueryString("test").map { t =>
+            Ok("xxxxx")
+        }
+      }
+    }.getOrElse(Ok("111111"))
+  }
+
 
 }

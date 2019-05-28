@@ -26,11 +26,11 @@ class Brand2Service  @Inject()(protected val dbConfigProvider: DatabaseConfigPro
 
 
   implicit private[this] val getResults1 = GetResult(r => (Product(r.<<[Option[Int]], r.<<[Int], r.<<[String])))
-  implicit private[this] val getResults2 = GetResult(r => (Repository(r.<<[Option[Int]], r.<<[Int], r.<<[String])))
+  implicit private[this] val getResults2 = GetResult(r => (Repository(r.<<[Option[Int]], r.<<[Int], r.<<[String], r.<<[Int])))
   implicit private[this] val getResults3 = GetResult(r => (Brand(r.<<[Option[Int]], r.<<[String])))
   implicit private[this] val getResults4 = GetResult(r => (
     Brand(r.<<[Option[Int]], r.<<[String]), 
-    Repository(r.<<[Option[Int]], r.<<[Int], r.<<[String]), 
+    Repository(r.<<[Option[Int]], r.<<[Int], r.<<[String], r.<<[Int]), 
     r.<<[Option[Int]], r.<<[Option[Int]], r.<<[Option[String]]
   ))
 
