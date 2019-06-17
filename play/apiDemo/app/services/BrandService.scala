@@ -10,9 +10,9 @@ import scala.concurrent.Future
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import play.api.Play
 
-import slick.jdbc.GetResult
-
+import slick.jdbc.{GetResult}
 import scala.concurrent.{ExecutionContext, Future}
+
 
 @Singleton
 class BrandService  @Inject()(protected val dbConfigProvider: DatabaseConfigProvider) (implicit ec: ExecutionContext) extends HasDatabaseConfigProvider[JdbcProfile]  {
@@ -30,6 +30,7 @@ class BrandService  @Inject()(protected val dbConfigProvider: DatabaseConfigProv
     Repository(r.<<[Option[Int]], r.<<[Int], r.<<[String], r.<<[Int]), 
     r.<<[Option[Int]], r.<<[Option[Int]], r.<<[Option[String]]
   ))
+
       
   def fetchAll(): Future[Seq[Brand]] = {
     db.run(_brandTables.filter(_.id=!= -1).result)
@@ -177,6 +178,36 @@ class BrandService  @Inject()(protected val dbConfigProvider: DatabaseConfigProv
       }.result) 
 
     }
+
+
+  implicit val getResult:GetResult[Seq[String]] = r=> {
+    val result = new Array[String](r.numColumns)
+    for(i <- 0 until r.numColumns) {
+      result.update(i, r.<<[String])
+    }
+    result
+  }
+   def fetchProductBranch10: Future[Seq[Seq[String]]] = {
+     db.run(sql"""
+      select * from brand       
+     """.as[(Seq[String])])
+  }
+  
+   implicit val getResult2:GetResult[(Brand2, Seq[Double])] = r=> {
+    val result = new Array[Double](r.numColumns - 3)    
+    val brand = Brand2(r.<<[Option[Int]], r.<<[String], r.<<[Double])
+    for(i <- 0 until r.numColumns-3) {
+      result.update(i, r.<<[Double])
+    }
+    (brand, result)
+  }
+   def fetchProductBranch11: Future[Seq[(Brand2, Seq[Double])]] = {
+     db.run(sql"""
+      select b.*, 11,22,33 from brand b       
+     """.as[(Brand2, Seq[Double])])
+  }
+
+
 
   def fetchSumRepository: Future[Seq[(Int, Int)]] = {
     db.run(_repositoryTables.groupBy(_.brandId).map {

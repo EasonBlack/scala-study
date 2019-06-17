@@ -34,6 +34,8 @@ GET     /api/brand/fetchProductBrand6       controllers.BrandController.fetchPro
 GET     /api/brand/fetchProductBrand7       controllers.BrandController.fetchProductBrand7
 GET     /api/brand/fetchProductBrand8       controllers.BrandController.fetchProductBrand8
 GET     /api/brand/fetchProductBrand9       controllers.BrandController.fetchProductBrand9
+GET     /api/brand/fetchProductBrand10      controllers.BrandController.fetchProductBrand10
+GET     /api/brand/fetchProductBrand11      controllers.BrandController.fetchProductBrand11
 GET     /api/brand/fetchSumRepository       controllers.BrandController.fetchSumRepository
 GET     /api/brand/fetchSumRepository2      controllers.BrandController.fetchSumRepository2
 GET     /api/brand/fetchSumRepository3      controllers.BrandController.fetchSumRepository3
@@ -65,6 +67,7 @@ GET     /api/order/fetch7                   controllers.OrderController.fetch7
 GET     /api/order/fetch8                   controllers.OrderController.fetch8
 
 GET     /api/order/fetchOrderItem1          controllers.OrderController.fetchOrderItem1
+GET     /api/order/fetchOrderItem2          controllers.OrderController.fetchOrderItem2
 
 POST    /api/order                          controllers.OrderController.save1
 POST    /api/order/saveOrder2               controllers.OrderController.saveOrder2
