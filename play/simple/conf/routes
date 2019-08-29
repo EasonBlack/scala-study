@@ -42,5 +42,9 @@ GET     /zxing/test2                 controllers.ZxingController.index2
 POST    /api/file/img                controllers.ZxingController.updatefile
 POST    /api/testZxing               controllers.ZxingController.testZxing
 
+
+GET     /test1                       controllers.JsonHandleController.test1
+GET     /test2                       controllers.JsonHandleController.test2
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

@@ -32,6 +32,8 @@ class HelloEntity extends PersistentEntity {
 }
 
 
+
+
 case class HelloState(message: String, timestamp: String)
 
 object HelloState {

@@ -19,6 +19,8 @@ libraryDependencies += "com.typesafe.play" %% "play-slick" % "3.0.1"
 libraryDependencies += "com.google.zxing" % "core" % "2.2"
 libraryDependencies += "com.google.zxing" % "javase" % "2.2"
 
+libraryDependencies += "org.json4s" %% "json4s-jackson" % "3.2.11"
+
 // libraryDependencies += "com.google.zxing" % "zxing-parent" % "3.3.3"
 
 

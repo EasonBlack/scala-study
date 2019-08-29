@@ -35,8 +35,10 @@ class HelloEntity extends PersistentEntity {
         }
       }
     .onEvent {
-      case (AddedToHelloEvent(name), state) =>
+      case (AddedToHelloEvent(name), state) => {
+        println(state.products)
         HelloState(name :: state.products)
+      }
     }
   }
 }

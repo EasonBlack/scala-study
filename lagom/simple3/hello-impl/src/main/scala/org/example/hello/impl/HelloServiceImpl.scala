@@ -22,6 +22,7 @@ class HelloServiceImpl(persistentEntityRegistry: PersistentEntityRegistry) exten
 
   override def postHello(id: String): ServiceCall[AddHelloRequest, Done] = ServiceCall { request=>
     val ref = persistentEntityRegistry.refFor[HelloEntity](id)
+    println(request.name)  //post 中的body {"name": "asdfad"}
     ref.ask(AddToHello(request.name))
   }
 
