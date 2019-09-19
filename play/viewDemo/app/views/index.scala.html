@@ -1,0 +1,18 @@
+@(tag: Map[String, Any])
+
+@main("Welcome to Play", tag) {
+  <div>
+    @tag.get("tag")
+
+    @if(List(1L, 2L, 3L, 5L).indexOf(tag.get("num").getOrElse(0L)) != -1) {
+      <div>Num In List</div>
+    } else {
+      <div>Num Not In</div>
+    }
+    @if(Seq(1L, 2L, 3L, 5L).indexOf(tag.get("num").getOrElse(0L)) != -1) {
+      <div>Num In List</div>
+    } else {
+      <div>Num Not In</div>
+    }
+  </div>
+}

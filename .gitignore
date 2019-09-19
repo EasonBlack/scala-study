@@ -1,2 +1,5 @@
 
 target
+.idea
+.g8
+.gradle

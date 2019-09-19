@@ -26,26 +26,54 @@ class HelloEntity extends PersistentEntity {
       case (GetHello(), ctx, state) =>
         ctx.reply(state.products)
     }
+    .onReadOnlyCommand[GetHello2, String] {
+      case (GetHello2(), ctx, state) =>
+        ctx.reply("xxxxxxxxxxx")
+    }
+    .onReadOnlyCommand[GetHello3, String] {
+      case (GetHello3(), ctx, state) =>
+        ctx.reply("yyyyyyyyyyy")
+    }
     .onCommand[AddToHello, Done] {
       case (AddToHello(name), context, state) =>
         context.thenPersist(
           AddedToHelloEvent(name)
         ) { _ =>
           context.reply(Done)
-        }
       }
+
+      
+      }
+    .onCommand[RemoveFromCartCommand, Done] {
+      case (RemoveFromCartCommand(product), context, state) =>
+        context.thenPersist(
+          RemovedFromCartEvent(product)
+        ) { _ =>
+          context.reply(Done)
+        }
+    }
+    .onCommand[AddToCartCommand, Done] {
+      case (AddToCartCommand(product), context, state) =>
+        context.thenPersist(
+          AddedToCartEvent(product)
+        ) { _ =>
+          context.reply(Done)
+        }
+    }
     .onEvent {
       case (AddedToHelloEvent(name), state) => {
-        println(state.products)
         HelloState(name :: state.products)
       }
+      case (AddedToCartEvent(product), state) =>
+        HelloState(product :: state.products)
+      case (RemovedFromCartEvent(product), state) =>
+        HelloState(state.products.filterNot(_ == product))
     }
   }
 }
 
 
 case class HelloState(products: List[String])
-
 object HelloState {
   implicit val format: Format[HelloState] = Json.format
 }
@@ -59,6 +87,8 @@ object HelloEvent {
 }
 
 case class AddedToHelloEvent(name: String) extends HelloEvent
+case class AddedToCartEvent(name: String) extends HelloEvent
+case class RemovedFromCartEvent(name: String) extends HelloEvent
 
 
 sealed trait HelloCommand[R] extends ReplyType[R]
@@ -72,6 +102,10 @@ object Hello {
 }
 
 case class GetHello() extends HelloCommand[List[String]]
+case class GetHello2() extends HelloCommand[String]
+case class GetHello3() extends HelloCommand[String]
+case class AddToCartCommand(product: String) extends HelloCommand[Done]
+case class RemoveFromCartCommand(product: String) extends HelloCommand[Done]
 
 
 object HelloSerializerRegistry extends JsonSerializerRegistry {
