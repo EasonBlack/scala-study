@@ -3,10 +3,6 @@ version in ThisBuild := "1.0-SNAPSHOT"
 
 // the Scala version that will be used for cross-compiled libraries
 scalaVersion in ThisBuild := "2.12.4"
-lagomServiceGatewayPort in ThisBuild := 9010
-
-
-PlayKeys.devSettings := Seq("play.akka.dev-mode.akka.http.parsing.max-uri-length" -> "20480")
 
 val macwire = "com.softwaremill.macwire" %% "macros" % "2.3.0" % "provided"
 val scalaTest = "org.scalatest" %% "scalatest" % "3.0.4" % Test
@@ -35,8 +31,4 @@ lazy val `hello-impl` = (project in file("hello-impl"))
   )
   .settings(lagomForkedTestSettings: _*)
   .dependsOn(`hello-api`)
-
-
-
-
 

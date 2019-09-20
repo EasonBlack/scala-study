@@ -21,7 +21,6 @@ trait HelloService extends Service {
 
   def hello2(): ServiceCall[NotUsed, String]
   def hello3(): ServiceCall[NotUsed, String]
-  def hello4(id:String): ServiceCall[NotUsed, String]
  
   def postHello(id: String): ServiceCall[AddHelloRequest, Done]
 
@@ -36,7 +35,6 @@ trait HelloService extends Service {
         pathCall("/api/hello/:id", hello _),
         pathCall("/api/hello2", hello2 _),
         pathCall("/api/hello3", hello3 _),
-        pathCall("/api/hello4?id", hello4 _),
         restCall(Method.POST, "/api/hello/:id", postHello _),
         restCall(Method.POST, "/api/add-to-cart/:id", addToCart _),
         restCall(Method.DELETE, "/api/cart/:id", removeFromCart _)

@@ -27,9 +27,6 @@ class HelloServiceImpl(persistentEntityRegistry: PersistentEntityRegistry) exten
   override def hello3():ServiceCall[NotUsed, String] = ServiceCall { _ =>
     persistentEntityRegistry.refFor[HelloEntity]("99").ask(GetHello3())
   }
-  override def hello4(id: String):ServiceCall[NotUsed, String] = ServiceCall { _ =>
-    persistentEntityRegistry.refFor[HelloEntity]("99").ask(GetHello2())
-  }
 
   override def postHello(id: String): ServiceCall[AddHelloRequest, Done] = ServiceCall { request=>
     val ref = persistentEntityRegistry.refFor[HelloEntity](id)

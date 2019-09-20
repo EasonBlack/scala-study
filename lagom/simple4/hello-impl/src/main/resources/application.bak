@@ -1,28 +1,58 @@
 #
-#
 
-hello.cassandra.keyspace = hello
 
-cassandra-journal.keyspace = ${hello.cassandra.keyspace}
-cassandra-snapshot-store.keyspace = ${hello.cassandra.keyspace}
-lagom.persistence.read-side.cassandra.keyspace = ${hello.cassandra.keyspace}
-
-jdbc-defaults.slick.profile= "slick.jdbc.MySQLProfile$"
-db.default.profile = "slick.jdbc.MySQLProfile$"
-db.default.url = "jdbc:mysql://localhost:3306/thing?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=UTC"
-db.default.username = "root"
-db.default.password = "root"
-db.default.numThreads = 10
-
+play.akka.actor-system = "hello-simple3"
 
 play.application.loader = org.example.hello.impl.HelloLoader
 
 
 
-# hikaricp {
-#   minimumIdle = 30
-#   maximumPoolSize = 30
-# }
+jdbc-defaults.slick.profile = "slick.jdbc.MySQLProfile$"
+db.default.profile = "slick.jdbc.MySQLProfile$"
+db.default.driver = "com.mysql.jdbc.Driver"
+db.default.url = "jdbc:mysql://localhost:3306/thing?characterEncoding=UTF-8"
+db.default.logSql = true
+db.default.username = "root"
+db.default.password = "root"
+db.default.numThreads = 50
+
+
+lagom.persistence.jdbc.create-tables.auto = true
+
+
+
+jdbc-read-journal = {
+  tables = {
+    journal = {
+      tableName = "t_hello_simple3_journal"
+    }
+  }
+}
+
+jdbc-journal {
+  tables = {
+    journal = {
+      tableName = "t_hello_simple3_journal"
+    }
+  }
+}
+
+jdbc-snapshot-store = {
+  tables = {
+    snapshot = {
+      tableName = "t_hello_simple3_snapshot"
+    }
+  }
+}
+
+
+lagom.persistence {
+
+  ask-timeout = 10s
+
+  read-side.jdbc.tables.offset.tableName = "t_hello_simple3_entity_offsets"
+}
+
 
 
 # The properties below override Lagom default configuration with the recommended values for new projects.
@@ -40,20 +70,3 @@ akka.actor.serialization-bindings {
   "akka.actor.Address"        = akka-misc
   "akka.remote.UniqueAddress" = akka-misc
 }
-
-
-
- play.akka.http {
-
-  server {
-    remote-address-header = on
-    parsing.max-uri-length = 10k
-    parsing.max-header-value-length = 10k
-  }
-  parsing.max-uri-length = 10k
-  parsing.max-header-value-length = 10k
-
-  host-connection-pool.max-open-requests = 64
-}
-
-
