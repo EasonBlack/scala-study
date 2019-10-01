@@ -10,8 +10,12 @@ import java.io.{File, FileOutputStream, PrintWriter, StringWriter, FileInputStre
 
 import org.apache.poi.ss.usermodel.{Row, WorkbookFactory}
 
+import services.ExcelExporter
+
+import scala.collection.{JavaConverters, mutable}
+
 @Singleton
-class HomeController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
+class HomeController @Inject()(cc: ControllerComponents, excelExporter: ExcelExporter) extends AbstractController(cc) {
 
   def index() = Action { implicit request: Request[AnyContent] =>
     Ok(views.html.index())
@@ -38,5 +42,29 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
     })
     Ok(result)
   }
+
+  def fetch3 = Action {
+    val headers = Seq("aaa", "bbb")
+    val data = Seq((11,22), (3,4)).map { item =>
+     
+        JavaConverters.seqAsJavaList(Seq(item._1, item._2))
+    }
+  
+    excelExporter.exportData(headers, data, "dest", "统计test", Map(
+        "title" -> "test", "title2"->"test2"))
+  } 
+  def fetch4 = Action {
+    val headers = Seq("aaa", "bbb")
+    val data = Seq((11,22), (3,4)).map { item =>
+     
+        JavaConverters.seqAsJavaList(Seq(item._1, item._2))
+    }
+    excelExporter.exportData2(headers, data, "dest", "统计test", Map(
+        "title" -> "test", "title2"->"test2"))
+  } 
+  def fetch5 = Action {
+    excelExporter.exportMultiple("destmultiple", "统计test-multiple", Map(
+        "title" -> "test"))
+  } 
 
 }

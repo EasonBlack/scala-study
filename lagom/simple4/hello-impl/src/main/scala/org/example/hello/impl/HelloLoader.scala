@@ -10,6 +10,10 @@ import org.example.hello.api.HelloService
 import com.lightbend.lagom.scaladsl.broker.kafka.LagomKafkaComponents
 import com.softwaremill.macwire._
 
+import com.lightbend.lagom.scaladsl.persistence.jdbc.JdbcPersistenceComponents
+import com.lightbend.lagom.scaladsl.persistence.slick.SlickPersistenceComponents
+import play.api.db.HikariCPComponents
+
 class HelloLoader extends LagomApplicationLoader {
 
   override def load(context: LagomApplicationContext): LagomApplication =
@@ -25,9 +29,8 @@ class HelloLoader extends LagomApplicationLoader {
 
 abstract class HelloApplication(context: LagomApplicationContext)
   extends LagomApplication(context)
-    with CassandraPersistenceComponents
-    with LagomKafkaComponents
-    with AhcWSComponents {
+    with AhcWSComponents with JdbcPersistenceComponents with HikariCPComponents with SlickPersistenceComponents
+{
 
   // Bind the service that this server provides
   override lazy val lagomServer = serverFor[HelloService](wire[HelloServiceImpl])

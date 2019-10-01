@@ -32,7 +32,8 @@ class Brand2Controller @Inject()(brand2Service: Brand2Service, cc: ControllerCom
  
   implicit val repositoryFormat = Json.format[Repository]
 
-   def fetch1() = Action.async { implicit request: Request[AnyContent] =>
+  @deprecated("test deprecated.", since = "x.x.0")
+  def fetch1() = Action.async { implicit request: Request[AnyContent] =>
     brand2Service.fetchProductBranch1 map { 
       items => Ok(Json.toJson(items))
     } 

@@ -17,22 +17,14 @@ class HelloEntity extends PersistentEntity {
   override type Event = HelloEvent
   override type State = HelloState
 
-  override def initialState: HelloState = HelloState(List.empty)
+  override def initialState: HelloState = HelloState("")
 
 
   override def behavior: Behavior = {
     case HelloState(_) => Actions()
-    .onReadOnlyCommand[GetHello, List[String]] {
+    .onReadOnlyCommand[GetHello, String] {
       case (GetHello(), ctx, state) =>
-        ctx.reply(state.products)
-    }
-    .onReadOnlyCommand[GetHello2, String] {
-      case (GetHello2(), ctx, state) =>
-        ctx.reply("xxxxxxxxxxx")
-    }
-    .onReadOnlyCommand[GetHello3, String] {
-      case (GetHello3(), ctx, state) =>
-        ctx.reply("yyyyyyyyyyy")
+        ctx.reply(state.name)
     }
     .onCommand[AddToHello, Done] {
       case (AddToHello(name), context, state) =>
@@ -40,40 +32,19 @@ class HelloEntity extends PersistentEntity {
           AddedToHelloEvent(name)
         ) { _ =>
           context.reply(Done)
-      }
-
-      
-      }
-    .onCommand[RemoveFromCartCommand, Done] {
-      case (RemoveFromCartCommand(product), context, state) =>
-        context.thenPersist(
-          RemovedFromCartEvent(product)
-        ) { _ =>
-          context.reply(Done)
-        }
-    }
-    .onCommand[AddToCartCommand, Done] {
-      case (AddToCartCommand(product), context, state) =>
-        context.thenPersist(
-          AddedToCartEvent(product)
-        ) { _ =>
-          context.reply(Done)
         }
     }
     .onEvent {
       case (AddedToHelloEvent(name), state) => {
-        HelloState(name :: state.products)
+        HelloState(name)
       }
-      case (AddedToCartEvent(product), state) =>
-        HelloState(product :: state.products)
-      case (RemovedFromCartEvent(product), state) =>
-        HelloState(state.products.filterNot(_ == product))
+
     }
   }
 }
 
 
-case class HelloState(products: List[String])
+case class HelloState(name: String)
 object HelloState {
   implicit val format: Format[HelloState] = Json.format
 }
@@ -101,11 +72,7 @@ object Hello {
   implicit val format: Format[Hello] = Json.format
 }
 
-case class GetHello() extends HelloCommand[List[String]]
-case class GetHello2() extends HelloCommand[String]
-case class GetHello3() extends HelloCommand[String]
-case class AddToCartCommand(product: String) extends HelloCommand[Done]
-case class RemoveFromCartCommand(product: String) extends HelloCommand[Done]
+case class GetHello() extends HelloCommand[String]
 
 
 object HelloSerializerRegistry extends JsonSerializerRegistry {

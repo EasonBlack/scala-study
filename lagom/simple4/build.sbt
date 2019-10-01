@@ -26,7 +26,10 @@ lazy val `hello-impl` = (project in file("hello-impl"))
       lagomScaladslKafkaBroker,
       lagomScaladslTestKit,
       macwire,
-      scalaTest
+      scalaTest,
+
+      "mysql" % "mysql-connector-java" % "8.0.12",
+      lagomScaladslPersistenceJdbc,
     )
   )
   .settings(lagomForkedTestSettings: _*)
