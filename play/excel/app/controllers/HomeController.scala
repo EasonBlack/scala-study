@@ -8,8 +8,10 @@ import org.apache.poi.ss.usermodel.{Row, WorkbookFactory}
 import java.nio.file.{Paths};
 import java.io.{File, FileOutputStream, PrintWriter, StringWriter, FileInputStream, InputStream}
 
-import org.apache.poi.ss.usermodel.{Row, WorkbookFactory}
+import com.opencsv.CSVReader
+import scala.io.{Codec, Source}
 
+import scala.concurrent.{ExecutionContext, Future}
 import services.ExcelExporter
 
 import scala.collection.{JavaConverters, mutable}
@@ -19,6 +21,10 @@ class HomeController @Inject()(cc: ControllerComponents, excelExporter: ExcelExp
 
   def index() = Action { implicit request: Request[AnyContent] =>
     Ok(views.html.index())
+  }
+
+  def indexFile() = Action {
+     Ok(views.html.indexFile())
   }
 
   def fetch1 = Action { request => 
@@ -67,4 +73,27 @@ class HomeController @Inject()(cc: ControllerComponents, excelExporter: ExcelExp
         "title" -> "test"))
   } 
 
+
+  def upload = Action.async(parse.multipartFormData) {implicit  request => 
+     request.body.file("data") match {
+        case None =>  Future.successful(Ok("ERROR"))
+        case Some(file) => {
+            val reader = Source.fromFile(file.ref.path.toString, Codec.UTF8.name).reader
+            val csvReader = new CSVReader(reader)       
+            try {
+              val lines = csvReader.readAll()
+              for (i <- 1 until lines.size) {
+                  val columns = lines.get(i)
+                  val name = columns(0)
+                  val code = columns(1)
+                  println(name, code)
+              }
+              Future.successful(Ok("OK"))
+            } finally {
+              reader.close()
+              csvReader.close()
+            }
+        }
+     }
+  }
 }

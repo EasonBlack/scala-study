@@ -11,6 +11,7 @@ libraryDependencies += guice
 libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % Test
 libraryDependencies += "org.apache.poi" % "poi" % "4.0.1"
 libraryDependencies += "org.apache.poi" % "poi-ooxml" % "4.0.1"
+libraryDependencies +=  "com.opencsv" % "opencsv" % "4.2"
 
 libraryDependencies += "org.jxls" % "jxls" % "2.4.3" exclude ("org.slf4j", "slf4j-simple")
 libraryDependencies += "org.jxls" % "jxls-poi" % "1.0.14" exclude ("org.slf4j", "slf4j-simple")
