@@ -1,0 +1,72 @@
+#
+
+
+play.akka.actor-system = "hello-simple3"
+
+play.application.loader = org.example.hello.impl.HelloLoader
+
+
+
+jdbc-defaults.slick.profile = "slick.jdbc.MySQLProfile$"
+db.default.profile = "slick.jdbc.MySQLProfile$"
+db.default.driver = "com.mysql.jdbc.Driver"
+db.default.url = "jdbc:mysql://localhost:3306/thing?characterEncoding=UTF-8"
+db.default.logSql = true
+db.default.username = "root"
+db.default.password = "root"
+db.default.numThreads = 50
+
+
+lagom.persistence.jdbc.create-tables.auto = true
+
+
+
+jdbc-read-journal = {
+  tables = {
+    journal = {
+      tableName = "t_hello_simple3_journal"
+    }
+  }
+}
+
+jdbc-journal {
+  tables = {
+    journal = {
+      tableName = "t_hello_simple3_journal"
+    }
+  }
+}
+
+jdbc-snapshot-store = {
+  tables = {
+    snapshot = {
+      tableName = "t_hello_simple3_snapshot"
+    }
+  }
+}
+
+
+lagom.persistence {
+
+  ask-timeout = 10s
+
+  read-side.jdbc.tables.offset.tableName = "t_hello_simple3_entity_offsets"
+}
+
+
+
+# The properties below override Lagom default configuration with the recommended values for new projects.
+#
+# Lagom has not yet made these settings the defaults for backward-compatibility reasons.
+
+# Prefer 'ddata' over 'persistence' to share cluster sharding state for new projects.
+# See https://doc.akka.io/docs/akka/current/cluster-sharding.html#distributed-data-vs-persistence-mode
+akka.cluster.sharding.state-store-mode = ddata
+
+# Enable the serializer provided in Akka 2.5.8+ for akka.Done and other internal
+# messages to avoid the use of Java serialization.
+akka.actor.serialization-bindings {
+  "akka.Done"                 = akka-misc
+  "akka.actor.Address"        = akka-misc
+  "akka.remote.UniqueAddress" = akka-misc
+}

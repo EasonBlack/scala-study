@@ -19,3 +19,4 @@ object JsonToClass {
         println(xxx)
     }
 }
+
