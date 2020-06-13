@@ -16,4 +16,6 @@ class TestService @Inject() {
   }
 
   def showCount(): Int  = count
+
+  def showText(): String = "test"
 }
