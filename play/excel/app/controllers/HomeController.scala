@@ -51,8 +51,7 @@ class HomeController @Inject()(cc: ControllerComponents, excelExporter: ExcelExp
 
   def fetch3 = Action {
     val headers = Seq("aaa", "bbb")
-    val data = Seq((11,22), (3,4)).map { item =>
-     
+    val data = Seq((11,22), (3,4)).map { item =>  
         JavaConverters.seqAsJavaList(Seq(item._1, item._2))
     }
   
@@ -71,6 +70,14 @@ class HomeController @Inject()(cc: ControllerComponents, excelExporter: ExcelExp
   def fetch5 = Action {
     excelExporter.exportMultiple("destmultiple", "统计test-multiple", Map(
         "title" -> "test"))
+  } 
+  def fetch6 = Action {
+    val headers = Seq("aaa", "bbb")
+    val data = Seq((11,22), (3,4)).map { item =>  
+        JavaConverters.seqAsJavaList(Seq(item._1, item._2))
+    }
+    excelExporter.exportMerge(headers, data, "destmerge", "merge", Map(
+        "title" -> "test", "HH"-> "x2", "col"->"5", "col2"->"2" ))
   } 
 
 

@@ -12,6 +12,9 @@ import play.api.mvc.AnyContent
 
 import org.json4s._
 import org.json4s.jackson.JsonMethods._
+import scala.collection.mutable.MutableList
+import models.Student
+
 
 
 case class UserAA(id: Int, name: String, age: Int)
@@ -94,6 +97,75 @@ class JsonHandleController @Inject()(cc: ControllerComponents) extends AbstractC
       Ok("test2")
    }
 
+
+    def test3() = Action { implicit request: Request[AnyContent] =>
+       val json1 =Json.parse("""[
+         {"id": 1},
+         {"id": 2},
+         {"id": 3}
+       ]""")
+       println(json1)
+       json1 match  {
+         case js: JsArray => js.value.map {
+           case j => println((j \ "id").as[Int])
+         }
+        case _ => 
+       }
+      
+       Ok("test3")
+    }
+
+    def test4() = Action { implicit request: Request[AnyContent] =>
+
+      val listResult = MutableList[Student]()
+      val list = MutableList[Student]()
+      list.+=(Student(1,  """[{"name": "a" }, { "name": "b" }]""", "20"))
+      list.+=(Student(2,  """[{"name": "c" }, { "name": "d" }]""", "30"))
+     
+      list map { case student => 
+        Json.parse(student.name) match {
+          case js : JsArray => js.value.map {
+            case j => {
+              val _student = student.copy(name = (j \ "name").as[String])
+              listResult.+=(_student)
+            }
+          }
+        }
+      }
+     
+      println(listResult)
+      
+      Ok("test4")
+    }
+
+    def test5() = Action { implicit request: Request[AnyContent] =>
+
+      val listResult = MutableList[(Int, String, String)]()
+      val list = MutableList[Student]()
+      list.+=(Student(1,  """[{"name": "a" }, { "name": "b" }]""", "20"))
+      list.+=(Student(2,  """[{"name": "c" }, { "name": "d" }]""", "30"))
+     
+      list map { case student => 
+        Json.parse(student.name) match {
+          case js : JsArray => js.value.map {
+            case j => {
+              val _student = ( student.id, (j \ "name").as[String], student.age)
+              listResult.+=(_student)
+            }
+          }
+        }
+      }
+     
+      println(listResult.toList)
+      listResult.groupBy(t=>t._1).map {
+        case (studentId, items) => { 
+          println(studentId)
+          println(items)
+        }
+      }
+      
+      Ok("test5")
+    }
 
 
 
