@@ -42,6 +42,9 @@ GET     /api/brand/fetchSumRepository3      controllers.BrandController.fetchSum
 POST    /api/brand/post1                    controllers.BrandController.post1
 POST    /api/brand/post2                    controllers.BrandController.post2
 
+GET     /api/product/fetch                  controllers.ProductController.fetch1
+
+
 GET     /api/brand2/fetch1                  controllers.Brand2Controller.fetch1
 GET     /api/brand2/fetch1_1                controllers.Brand2Controller.fetch1_1
 GET     /api/brand2/fetch2                  controllers.Brand2Controller.fetch2

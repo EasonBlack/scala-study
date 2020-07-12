@@ -61,7 +61,11 @@ class Brand2Service  @Inject()(protected val dbConfigProvider: DatabaseConfigPro
   }
 
   def fetchProductBranch2: Future[Seq[(Int, Int, Int)]] = {
-
+    var cols =  Tables.productTables.baseTableRow.create_*.map(t => s"c.${t.name} AS c_${t.name}").toSeq.mkString(", ") 
+    var tableName = Tables.productTables.baseTableRow.tableName
+    println(cols)
+    println(tableName)
+    println(getClass.getSimpleName)
     val query = _productTables.groupBy(t=>(t.bid, t.id)).map {
       case (keys, groups) =>
         println("xxxxxxxxxxxxxxxxxxxx") 

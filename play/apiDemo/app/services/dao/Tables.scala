@@ -24,6 +24,25 @@ object Tables  {
   val productTables = TableQuery[ProductTable]
 
 
+  class Product2Table(tag: Tag) extends Table[Product2](tag, "product") {
+    def id = column[Int]("id", O.PrimaryKey,O.AutoInc)
+    def bid = column[Int]("bid")
+    def name = column[String]("name")
+
+    type ExtraInfoTuple = (String)
+    type ProductTuple = (Int,  Int, ExtraInfoTuple)
+    val unapplyTuple: (Product2 => Option[ProductTuple]) = p => Some(p.id, p.bid, (p.extraInfo.name))
+    val toTuple: (ProductTuple => Product2) = {
+      case (id, bid, (name)) => Product2(id,  bid, Product2ExtraInfo(name))
+    }
+    val shapedValue = (id, bid, (name)).shaped
+    override def * = shapedValue <> (toTuple, unapplyTuple)
+        
+  }
+
+  val product2Tables = TableQuery[Product2Table]
+
+
 
   class RepositoryTable(tag: Tag) extends Table[Repository](tag, "repository") {
     def id = column[Int]("id", O.PrimaryKey,O.AutoInc)
@@ -84,5 +103,7 @@ object Tables  {
 
 
   val test  = "aaaaaaa"
+
+  
 
 }
