@@ -77,5 +77,10 @@ POST    /api/order/saveOrder2               controllers.OrderController.saveOrde
 POST    /api/order/saveOrder3               controllers.OrderController.saveOrder3
 POST    /api/order/saveOrder4               controllers.OrderController.saveOrder4
 
+
+GET     /api/cache                           controllers.CacheController.fetchFromCache
+POST    /api/cache                           controllers.CacheController.postToCache
+POST    /api/cache2                          controllers.CacheController.postToCache2
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

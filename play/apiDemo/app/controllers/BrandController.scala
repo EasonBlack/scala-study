@@ -11,6 +11,7 @@ import services._
 import scala.collection.mutable.ListBuffer
 
 
+
 @Singleton
 class BrandController @Inject()(brandService: BrandService, cc: ControllerComponents)
 (implicit exec: ExecutionContext) extends AbstractController(cc) {

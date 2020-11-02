@@ -19,5 +19,9 @@ object HelloWorld {
          var c : Seq[Int] = a.toSeq;
          println(c)
 
+        var dflag =   Some("bb")
+        var d = "aaaa"
+        d += (if(dflag.isDefined) dflag.get else "" )
+        println(d)
     }
 }
