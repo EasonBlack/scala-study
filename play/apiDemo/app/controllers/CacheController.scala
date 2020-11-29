@@ -11,6 +11,7 @@ import play.api.cache.SyncCacheApi
 import scala.collection.mutable.ListBuffer
 import scala.concurrent.{ExecutionContext, Future}
 import scala.concurrent.duration._
+import play.api.mvc.{InjectedController, Request, Result}
 
 @Singleton
 class CacheController @Inject()(cc: ControllerComponents, cacheApi: SyncCacheApi)
