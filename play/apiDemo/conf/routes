@@ -52,6 +52,7 @@ GET     /api/brand2/fetch3                  controllers.Brand2Controller.fetch3
 GET     /api/brand2/fetch4                  controllers.Brand2Controller.fetch4
 PUT     /api/brand2/put1                    controllers.Brand2Controller.put1
 GET     /api/brand2/multipepost             controllers.Brand2Controller.multipepost
+# GET     /api/brand2/multifetch              controllers.Brand2Controller.multifetch
 
 
 GET     /api/some/fetch1                    controllers.SomeController.fetch1

@@ -12,6 +12,7 @@ GET     /product                    controllers.ProductController.index
 
 
 GET     /api/brand                  controllers.BrandController.fetchAll
+GET     /api/multifetch             controllers.BrandController.multifetch
 POST    /api/rule                   controllers.BrandRuleController.addRule
 POST    /api/rule2                  controllers.BrandRuleController.addRule2
 GET     /api/rule                   controllers.BrandRuleController.fetchRules

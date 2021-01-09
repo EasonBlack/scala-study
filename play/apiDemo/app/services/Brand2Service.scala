@@ -17,6 +17,7 @@ import scala.concurrent.{ExecutionContext, Future}
 import scala.collection.JavaConverters
 import scala.collection.mutable.ListBuffer
 
+
 @Singleton
 class Brand2Service  @Inject()(protected val dbConfigProvider: DatabaseConfigProvider) (implicit ec: ExecutionContext) extends HasDatabaseConfigProvider[JdbcProfile]  {
   val _brandTables = Tables.brandTables
@@ -34,9 +35,14 @@ class Brand2Service  @Inject()(protected val dbConfigProvider: DatabaseConfigPro
     r.<<[Option[Int]], r.<<[Option[Int]], r.<<[Option[String]]
   ))
 
-  private def getBrand(id: Int) {
+  def getBrand(id: Int) {
     db.run(sql"select * from brand where id=#$id".as[(Int, String)]).map {
       result => result
+    }
+  }
+  def getBrandHeadName(id: Int) : Future[String] = {
+    db.run(sql"select * from brand where id=#$id".as[(Int, String)].headOption).map {
+      result => result.map(_._2).getOrElse("")
     }
   }
       
@@ -100,7 +106,4 @@ class Brand2Service  @Inject()(protected val dbConfigProvider: DatabaseConfigPro
        _brandTables += Brand(None, name)
     }:_*).transactionally).map { _ => Unit }
   }
-   
-
-  
 }

@@ -4,11 +4,13 @@ import javax.inject._
 import play.api._
 import play.api.mvc._
 import play.api.libs.json._
-import scala.concurrent.ExecutionContext
+import scala.concurrent.{ExecutionContext, Future}
 import models._
 import services._
 
 import scala.collection.mutable.ListBuffer
+import scala.util.Success
+import scala.util.Failure
 
 
 @Singleton
@@ -81,5 +83,19 @@ class Brand2Controller @Inject()(brand2Service: Brand2Service, cc: ControllerCom
        _ => Ok("successful")
      }
   }
+
+  // def multifetch = Action.async { requst => 
+  //   var a = List(1,2,3,4)
+  //   Future.sequence(a.map {
+  //     t => brand2Service.getBrandHeadName(t)
+  //   }.toSeq).map { res =>
+  //     println("xxxxxxxxxxxxxxx")
+  //     Ok(Json.toJson(res))
+  //     // case Success(res) => Ok("Success")
+  //     // case Failure(ex)  => Ok("Error")
+  //   }
+
+     
+  // }
 
 }

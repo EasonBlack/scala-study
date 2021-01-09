@@ -16,7 +16,7 @@ import models._
 import utils.JsonUtils.{brandWrites }
 
 
-import scala.concurrent.ExecutionContext
+import scala.concurrent.{ExecutionContext, Future}
 
  
 @Singleton
@@ -31,6 +31,18 @@ class BrandController @Inject()(brandService: BrandService, cc: ControllerCompon
     brandService.fetchAll map { 
       brands => Ok(Json.toJson(brands))
     } 
+  }
+
+  def multifetch = Action.async { requst => 
+    var a = List(1,2,3,4)
+    Future.sequence(a.map {
+      t => brandService.getBrandHeadName(t)
+    }.toSeq).map { res =>
+      println("xxxxxxxxxxxxxxx")
+      Ok(Json.toJson(res))
+    }
+
+     
   }
 
 }

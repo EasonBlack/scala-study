@@ -21,6 +21,12 @@ class BrandService  @Inject()(protected val dbConfigProvider: DatabaseConfigProv
     db.run(_brandTables.result)
   }
 
+  def getBrandHeadName(id: Int) : Future[String] = {
+    db.run(sql"select * from brand where id=#$id".as[(Int, String)].headOption).map {
+      result => result.map(_._2).getOrElse("")
+    }
+  }
+
   def fetchRuleById: Unit = {
     
   }
