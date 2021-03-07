@@ -13,6 +13,11 @@ GET     /api/fetch3                 controllers.HomeController.fetch3
 GET     /api/fetch4                 controllers.HomeController.fetch4
 GET     /api/fetch5                 controllers.HomeController.fetch5
 GET     /api/fetch6                 controllers.HomeController.fetch6
+GET     /api/fetch7                 controllers.HomeController.fetch7
+GET     /api/fetch8                 controllers.HomeController.fetch8
+GET     /api/fetch9                 controllers.HomeController.fetch9
+GET     /api/fetch10                controllers.HomeController.fetch10
+GET     /api/fetch11                controllers.HomeController.fetch11
 
 POST    /api/upload                 controllers.HomeController.upload
 
