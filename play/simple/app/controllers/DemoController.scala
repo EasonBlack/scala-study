@@ -9,7 +9,7 @@ import play.api.http.HttpEntity
 import akka.util.ByteString
 import play.api.libs.json._
 import play.api.mvc.AnyContent
-
+import scala.concurrent.{ExecutionContext, Future}
 
 case class UserA(id: Int, name: String, age: Int)
 case class UserB(id: Int, name: String)
@@ -27,7 +27,7 @@ class Bar {
 case class Account(id: Long, name: String){}
 
 @Singleton
-class DemoController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
+class DemoController @Inject()(cc: ControllerComponents)(implicit exec: ExecutionContext) extends AbstractController(cc) {
 
   def index() = Action { implicit request: Request[AnyContent] =>
     //tuple
@@ -87,6 +87,11 @@ class DemoController @Inject()(cc: ControllerComponents) extends AbstractControl
         }
       }
     }.getOrElse(Ok("111111"))
+  }
+
+
+  def testFuture = Action.async { request =>
+      Future(Ok("111111"))
   }
 
 
