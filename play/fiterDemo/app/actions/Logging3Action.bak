@@ -1,0 +1,26 @@
+package actions
+
+import javax.inject.Inject
+import play.api.mvc._
+import scala.concurrent.ExecutionContext
+import scala.concurrent.Future
+import play.api.Logging
+
+class Logging3Action @Inject()(name: String, parser: BodyParsers.Default)(implicit ec: ExecutionContext)  extends ActionBuilderImpl(parser)  {
+
+    def apply(name: String): ActionBuilder[Request, AnyContent] = {
+      println("ppp")
+      action(request)
+    }
+  
+    override def invokeBlock[A](request: Request[A], block: (Request[A]) => Future[Result]) = {
+      println("Logging Action INVOLVE")
+      println(name)
+      block(request).map { r =>
+        println(r)
+        r
+      }
+    }
+
+}
+

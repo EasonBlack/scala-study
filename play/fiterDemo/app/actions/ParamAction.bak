@@ -1,0 +1,24 @@
+package actions
+
+import javax.inject.Inject
+import play.api.mvc._
+import scala.concurrent.ExecutionContext
+import scala.concurrent.Future
+import play.api.Logging
+
+
+
+class ParamAction(param: String)(implicit ec: ExecutionContext)
+    extends ActionBuilder[Request, AnyContent] {
+  
+    override def invokeBlock[A](request: Request[A], block: (Request[A]) => Future[Result]) = {
+      println("xxxxxxxxxx")
+      println(param)
+      println("xxxxxxxxxx")
+
+      block(request).map { r =>
+        println(r)
+        r
+      }
+    }
+}

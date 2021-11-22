@@ -8,7 +8,7 @@ object MongoFactory {
 
   private val SERVER = "localhost"
   private val PORT   = 27017
-  private val DATABASE = "flipos"
+  private val DATABASE = "xxxx"
   private val COLLECTION = "stocks"
 
   val mongoClient  = MongoClient(SERVER, PORT)
