@@ -6,6 +6,7 @@
 # An example controller showing a sample home page
 GET     /                           controllers.HomeController.index
 GET     /file                       controllers.HomeController.indexFile
+GET     /mac-file                   controllers.MacController.indexFile
 
 GET     /api/fetch1                 controllers.HomeController.fetch1
 GET     /api/fetch2                 controllers.HomeController.fetch2
@@ -20,6 +21,9 @@ GET     /api/fetch10                controllers.HomeController.fetch10
 GET     /api/fetch11                controllers.HomeController.fetch11
 
 POST    /api/upload                 controllers.HomeController.upload
+GET     /api/export                 controllers.MacController.export
+GET     /api/export2                controllers.MacController.export2
+GET     /api/export3                controllers.MacController.export3
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
